@@ -1,2 +1,359 @@
-# big-query
-big-query
+# PyPI Download Analytics for compliance-trestle
+
+**Real-time insights into compliance-trestle package adoption and usage patterns**
+
+This repository contains BigQuery analytics tools and reports for the [compliance-trestle](https://github.com/oscal-compass/compliance-trestle) Python package, part of the OSCAL Compass project.
+
+**Report Date:** May 10, 2026
+
+---
+
+## 📊 Key Metrics Summary
+
+| Metric | 30 Days | 90 Days |
+|--------|---------|---------|
+| **Total Downloads** | 77,964 | 234,892 |
+| **Countries Reached** | 48 | 65 |
+| **CI/CD Installs** | 71% | 72% |
+| **UV Market Share** | 20.6% | 19.8% |
+| **Confirmed MCP Usage** | 101 (0.13%) | 303 (0.13%) |
+
+---
+
+## 🌍 Geographic Distribution
+
+### 30-Day Analysis
+
+**Top 10 Countries:**
+
+| Rank | Country | Downloads | % of Total |
+|------|---------|-----------|------------|
+| 1 | 🇺🇸 United States | 71,993 | 92.3% |
+| 2 | 🇸🇬 Singapore | 2,408 | 3.1% |
+| 3 | 🇨🇳 China | 830 | 1.1% |
+| 4 | 🇷🇺 Russia | 402 | 0.5% |
+| 5 | 🇯🇵 Japan | 347 | 0.4% |
+| 6 | 🇬🇧 United Kingdom | 318 | 0.4% |
+| 7 | 🇩🇪 Germany | 303 | 0.4% |
+| 8 | 🇫🇷 France | 238 | 0.3% |
+| 9 | 🇹🇼 Taiwan | 214 | 0.3% |
+| 10 | 🇪🇸 Spain | 197 | 0.3% |
+
+**[View Interactive 30-Day Map →](reports/2026.05.10.trestle.pypi.map-30.html)**
+
+![30-Day Geographic Distribution](reports/2026.05.10.trestle.pypi.map-30.png)
+
+**Key Insights:**
+- **Strong US dominance** (92.3%) aligns with OSCAL's US government origins
+- **Asia-Pacific presence** (Singapore, China, Japan, Taiwan) shows international adoption
+- **European adoption** across UK, Germany, France, Spain
+- **48 countries total** demonstrates global reach for security/compliance tooling
+
+### 90-Day Analysis
+
+**[View Interactive 90-Day Map →](reports/2026.05.10.trestle.pypi.map-90.html)**
+
+![90-Day Geographic Distribution](reports/2026.05.10.trestle.pypi.map-90.png)
+
+**90-Day Trends:**
+- **65 countries reached** (up from 48 in 30 days)
+- **Consistent US dominance** across time periods
+- **Growing international adoption** in Asia and Europe
+- **Emerging markets** in Middle East and Africa
+
+---
+
+## 🤖 MCP (Model Context Protocol) Usage Analysis
+
+### What is MCP?
+
+MCP (Model Context Protocol) is Anthropic's protocol for connecting AI assistants like Claude to external tools and data sources. When developers use Claude Desktop with MCP servers, they often install Python packages via `uvx` (uv's tool runner).
+
+### Detection Methodology
+
+Since MCP servers don't explicitly identify themselves in PyPI logs, we use **proxy signals** with significant limitations:
+
+1. **HIGH Confidence:** `uvx` subcommand usage (MCP's recommended pattern, but also used for other tools)
+2. **Contextual:** UV vs pip adoption trends (UV is MCP's recommended installer)
+3. **Observational:** CI vs non-CI patterns (shows usage context, not MCP specifically)
+
+**Important Limitations:**
+- PyPI data shows **installs, not actual usage** - packages may be installed but never run
+- `uvx` is used for many tools beyond MCP servers
+- Non-CI downloads don't isolate MCP - most PyPI downloads are non-CI regardless
+- The `details.ci` field is heuristically derived and unreliable
+- Cannot distinguish MCP from other UV usage without raw user-agent strings
+
+### MCP Analysis Charts
+
+**Interactive Dashboards:** [30-Day](reports/mcp_inference_30day.html) | [90-Day](reports/mcp_inference_90day.html)
+
+#### 1. Installer Utilized
+*Shows which installer tool was used to download the package (pip, uv, or poetry). UV (red) is a proxy for MCP since MCP clients use UV.*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![Installer Share 30d](reports/mcp_installer_share_30day.png)
+UV: 20.6% of downloads (16,055)
+
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![Installer Share 90d](reports/mcp_installer_share_90day.png)
+UV: 19.8% of downloads (46,485)
+
+
+</td>
+</tr></table>
+
+#### 2. UV Subcommands (uvx = MCP Pattern)
+*Breaks down all 16,055 UV downloads by which UV subcommand was used. The `uvx` command (red) is the standard pattern MCP clients use to run MCP servers (e.g., Claude Desktop, Cline, etc.).*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![UV Subcommands 30d](reports/mcp_uv_subcommands_30day.png)
+
+**101 uvx downloads** = HIGH confidence MCP
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![UV Subcommands 90d](reports/mcp_uv_subcommands_90day.png)
+
+**303 uvx downloads** = 3.0x growth
+
+</td>
+</tr></table>
+
+**UV Subcommand Meanings:**
+- **`sync`** - Synchronize project dependencies → *CI/CD pipelines, developers syncing environments*
+- **`pip install`** - UV's pip-compatible install command → *CI/CD, automated builds, legacy workflows*
+- **`(no subcommand)`** - UV downloads without subcommand data (gray bar) → *Older UV versions or incomplete logging*
+- **`run`** - Run a script in a virtual environment → *Developers, test runners, automation scripts*
+- **`tool install`** - Install a tool globally → *Developers setting up their environment*
+- **`uvx`** - Run a tool without installing it → ***MCP clients (Claude Desktop, Cline), developers trying tools***
+- **`lock`** - Generate a lockfile for dependencies → *Developers, CI/CD for reproducible builds*
+- **`pip compile`** - Compile requirements files → *CI/CD, dependency management workflows*
+- **`add`** - Add a dependency to the project → *Developers adding new packages*
+- **`tool run`** - Run an installed tool → *Developers, automation scripts*
+- **`tool upgrade`** - Upgrade an installed tool → *Developers maintaining tools*
+
+#### 3. CI vs Non-CI Usage
+*Separates automated CI/CD installs (green) from other downloads (red). Shows that 45.9% of UV downloads are non-CI, compared to only 17.9% of pip downloads being non-CI, which may suggest different usage patterns.*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![CI vs Non-CI 30d](reports/mcp_ci_vs_nonci_30day.png)
+
+UV: 45.9% non-CI (7,366 downloads)
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![CI vs Non-CI 90d](reports/mcp_ci_vs_nonci_90day.png)
+
+UV: 46.7% non-CI (21,699 downloads)
+
+</td>
+</tr></table>
+
+#### 4. Daily UV Trend
+*Red area = confirmed `uvx` (MCP pattern), teal line = total UV usage.*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![Daily Trend 30d](reports/mcp_daily_trend_30day.png)
+
+Sporadic uvx usage, emerging adoption
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![Daily Trend 90d](reports/mcp_daily_trend_90day.png)
+
+Increasing uvx frequency, growing trend
+
+</td>
+</tr></table>
+
+
+---
+
+### Key Findings Summary
+
+| Metric | 30 Days | 90 Days | Growth |
+|--------|---------|---------|--------|
+| **Confirmed MCP (uvx)** | 101 | 303 | 3.0x |
+| **UV Total** | 16,055 | 46,485 | 2.9x |
+| **UV Market Share** | 20.6% | 19.8% | Stable |
+
+**Key Insights:**
+- **MCP usage growing linearly** with overall package adoption
+- **UV adoption stable** around 20%, indicating sustained usage
+- **uvx pattern consistent** at ~0.6-0.7% of UV usage
+- **Early adoption phase** - MCP is real but still emerging
+
+### MCP Inference Limitations
+
+**What we CAN detect:**
+- ✅ Explicit `uvx` subcommand usage (MCP pattern)
+- ✅ UV vs pip adoption trends
+- ✅ CI/CD vs interactive usage patterns
+- ✅ Geographic and temporal patterns
+
+**What we CANNOT detect:**
+- ❌ Raw HTTP user-agent strings (not stored by PyPI)
+- ❌ Specific MCP server packages being installed
+- ❌ Runtime usage (only install events captured)
+- ❌ Definitive separation of MCP from other UV usage
+
+**Why:** PyPI's BigQuery dataset parses user-agent strings into structured fields (`installer.name`, `installer.version`, `installer.subcommand`) but doesn't store the raw string that might contain "Claude" or "MCP".
+
+**For detailed methodology:** See [mcp_inference_explanation_30day.md](reports/mcp_inference_explanation_30day.md)
+
+---
+
+## 💻 Platform & Technology Analysis
+
+### Operating Systems (30 Days)
+
+| OS/Distribution | Downloads | % of Total |
+|-----------------|-----------|------------|
+| Ubuntu Linux | 57,802 | 74.1% |
+| Debian GNU/Linux | 7,816 | 10.0% |
+| Red Hat Enterprise Linux | 3,311 | 4.2% |
+| Fedora Linux | 2,071 | 2.7% |
+| Windows | 540 | 0.7% |
+| macOS | 502 | 0.6% |
+| Amazon Linux | 393 | 0.5% |
+| Alpine Linux (Docker) | 213 | 0.3% |
+
+**Key Insights:**
+- **98.5% Linux adoption** - Strong enterprise and DevOps focus
+- **Ubuntu dominates** with 74% of all downloads
+- **RHEL presence** (4.2%) indicates enterprise adoption
+- **Docker usage** evident from Alpine Linux
+
+### Python Versions (30 Days)
+
+| Python Version | Downloads | % of Total |
+|----------------|-----------|------------|
+| 3.12 | 38,110 | 52.3% |
+| 3.11 | 21,149 | 29.0% |
+| 3.14 (dev) | 5,781 | 7.9% |
+| 3.10 | 5,062 | 6.9% |
+| 3.13 | 1,813 | 2.5% |
+
+**Key Insights:**
+- **Modern Python dominance** - 91.7% on Python 3.11+
+- **Early adopters** - 7.9% testing Python 3.14 dev builds
+- **Active maintenance** - Users keeping Python versions current
+
+### Package Installers (30 Days)
+
+| Installer | Downloads | % of Total | CI/CD % |
+|-----------|-----------|------------|---------|
+| pip | 56,779 | 72.8% | 82.1% |
+| uv | 16,048 | 20.6% | 54.1% |
+| poetry | 1,067 | 1.4% | 0% |
+| bandersnatch | 2,402 | 3.1% | N/A |
+
+**Key Insights:**
+- **pip remains dominant** at 72.8%
+- **uv growing rapidly** at 20.6% - modern, fast installer
+- **uv more interactive** - 45.9% non-CI vs pip's 17.9%
+- **poetry usage** at 1.4% indicates some dependency management adoption
+
+---
+
+## 📈 Adoption Signals
+
+### Enterprise Indicators
+- ✅ **RHEL presence** (4.2%) - Enterprise Linux environments
+- ✅ **CI/CD dominance** (71%) - Automated deployment pipelines
+- ✅ **Ubuntu/Debian** (84%) - Cloud and container deployments
+- ✅ **Geographic diversity** (48 countries) - Global enterprise adoption
+
+### Developer Ecosystem
+- ✅ **Modern Python** (91.7% on 3.11+) - Active maintenance
+- ✅ **Fast adopters** - 20.6% using uv installer
+- ✅ **Quick updates** - 62.9% on latest 4.0.x versions
+- ✅ **MCP integration** - 101 confirmed MCP-pattern downloads
+
+### AI Tool Integration
+- ✅ **MCP adoption detected** - 101 uvx downloads (0.13%)
+- ✅ **Growing trend** - 3.0x growth over 90 days
+- ✅ **Interactive usage** - UV's 45.9% non-CI ratio
+- ⚠️ **Early phase** - Still <1% of total downloads
+
+---
+
+## 📁 Repository Contents
+
+- **[HOWTO.md](HOWTO.md)** - Complete setup and usage guide
+- **[BIGQUERY_SCHEMA.md](BIGQUERY_SCHEMA.md)** - BigQuery dataset schema documentation
+- **[Makefile](Makefile)** - 41 automated commands for analytics
+- **[python/](python/)** - Python scripts for querying and visualization
+- **[reports/](reports/)** - Generated reports, maps, and MCP analysis
+
+### Quick Start
+
+```bash
+# Generate all reports
+make reports
+
+# Generate world maps
+make maps
+
+# Generate MCP inference analysis
+make mcp-analysis
+
+# Run all analytics
+make query-all
+
+# See all commands
+make help
+```
+
+---
+
+## 🔍 Data Sources & Methodology
+
+**Data Source:** Google BigQuery public dataset `bigquery-public-data.pypi.file_downloads`
+
+**Analysis Period:** 
+- 30-day reports: April 10 - May 10, 2026
+- 90-day reports: February 9 - May 10, 2026
+
+**Update Frequency:** Reports can be regenerated anytime with `make reports`
+
+**Privacy:** All data comes from PyPI's public dataset. No personal information is collected or stored.
+
+---
+
+**Last Updated:** May 10, 2026
+
+---
+
+*Analytics for the [compliance-trestle](https://github.com/oscal-compass/compliance-trestle) project*
