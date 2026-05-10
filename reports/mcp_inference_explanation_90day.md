@@ -2,7 +2,7 @@
 
 **Package:** compliance-trestle  
 **Period:** Last 90 days  
-**Generated:** 2026-05-10 08:30:56
+**Generated:** 2026-05-10 09:08:44
 
 ---
 
@@ -10,7 +10,7 @@
 
 **Confirmed MCP Pattern:** 317 downloads using `uvx` subcommand  
 **Potential MCP Range:** 317 - 13,775 downloads  
-**UV Market Share:** 15.3% of all installs
+**UV Market Share:** 15.4% of all installs
 
 ---
 
@@ -39,7 +39,7 @@ MCP (Model Context Protocol) servers don't identify themselves in PyPI download 
 - **What it is:** UV's overall adoption rate
 - **Why it matters:** MCP adoption drives some UV growth
 - **Confidence:** LOW - UV growth has many drivers beyond MCP
-- **Finding:** UV has 15.3% market share
+- **Finding:** UV has 15.4% market share
 
 ---
 
@@ -49,8 +49,8 @@ MCP (Model Context Protocol) servers don't identify themselves in PyPI download 
 
 | Installer | Total | CI/CD | Non-CI | Non-CI % |
 |-----------|-------|-------|--------|----------|
-| pip | 137,438 | 104,820 | 32,618 | 23.7% |
-| uv | 25,421 | 11,646 | 13,775 | 54.2% |
+| pip | 137,440 | 104,822 | 32,618 | 23.7% |
+| uv | 25,433 | 11,658 | 13,775 | 54.2% |
 
 **Key Insight:** UV has 2.3x higher non-CI usage ratio than pip, suggesting more interactive/developer usage.
 
@@ -58,7 +58,7 @@ MCP (Model Context Protocol) servers don't identify themselves in PyPI download 
 
 Top UV subcommands:
 
-- `sync`: 11,243 (44.2%)
+- `sync`: 11,255 (44.3%)
 - `pip install`: 9,274 (36.5%)
 - `run`: 1,876 (7.4%)
 - `tool install`: 1,391 (5.5%)
@@ -99,7 +99,7 @@ Top UV subcommands:
    - Represents 0.191% of total package usage
 
 2. **UV growth is significant**
-   - 15.3% market share (vs pip's 83.0%)
+   - 15.4% market share (vs pip's 83.0%)
    - 54.2% non-CI usage (vs pip's 23.7%)
    - MCP is one driver, but not the only one
 
@@ -164,7 +164,7 @@ MCP usage for compliance-trestle is **detectable but small**:
 - **Confirmed:** 317 downloads (0.191%)
 - **Estimated:** 317 - 1,585 downloads (0.191% - 0.96%)
 
-The broader story is **UV's growth** (15.3% market share), with MCP being one of several drivers for modern Python tooling adoption.
+The broader story is **UV's growth** (15.4% market share), with MCP being one of several drivers for modern Python tooling adoption.
 
 ---
 

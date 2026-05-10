@@ -10,14 +10,57 @@ PROJECT_ID    ?= $(shell gcloud config get-value project 2>/dev/null)
 VENV          := .venv.bq
 PYTHON        := $(VENV)/bin/python
 PIP           := $(VENV)/bin/pip
-QUERY_SCRIPT     := python/query.py
-QUERY_ADVANCED   := python/query_advanced.py
-MAP_DOWNLOADS    := python/map_downloads.py
-MAP_FROM_REPORTS := python/map_from_reports.py
-TO_MARKDOWN      := python/to_markdown.py
-CREDS_FILE       := credentials.json
+QUERY_SCRIPT        := python/query.py
+QUERY_ADVANCED      := python/query_advanced.py
+QUERY_USA           := python/query_usa_details.py
+QUERY_DEPLOYMENT    := python/query_deployment_environments.py
+VISUALIZE_DEPLOY    := python/visualize_deployment.py
+MAP_DOWNLOADS       := python/map_downloads.py
+MAP_FROM_REPORTS    := python/map_from_reports.py
+TO_MARKDOWN         := python/to_markdown.py
+CREDS_FILE          := credentials.json
 
-.DEFAULT_GOAL := help
+.DEFAULT_GOAL := all
+
+# ------------------------------------------------------------------------------
+# Main Targets
+# ------------------------------------------------------------------------------
+.PHONY: all
+all: fetch process
+	@echo ""
+	@echo "=========================================="
+	@echo "✓ All data fetched and charts generated!"
+	@echo "=========================================="
+	@echo ""
+
+.PHONY: fetch
+fetch: check-creds venv
+	@echo ""
+	@echo "=========================================="
+	@echo "Fetching data from BigQuery..."
+	@echo "=========================================="
+	@echo ""
+	@$(MAKE) report-last-30
+	@$(MAKE) report-last-90
+	@echo ""
+	@echo "✓ Data fetch complete"
+	@echo ""
+
+.PHONY: process
+process: venv
+	@echo ""
+	@echo "=========================================="
+	@echo "Processing data and generating charts..."
+	@echo "=========================================="
+	@echo ""
+	@$(MAKE) maps
+	@$(MAKE) mcp-analysis DAYS=30
+	@$(MAKE) mcp-analysis DAYS=90
+	@$(MAKE) viz-deploy-30
+	@$(MAKE) viz-deploy-90
+	@echo ""
+	@echo "✓ Chart generation complete"
+	@echo ""
 
 # ------------------------------------------------------------------------------
 # Help
@@ -27,6 +70,11 @@ help:
 	@echo ""
 	@echo "  PyPI BigQuery Analytics — Makefile"
 	@echo "  ==================================="
+	@echo ""
+	@echo "  MAIN WORKFLOW:"
+	@echo "    make                       Fetch all data and generate all charts (default)"
+	@echo "    make fetch                 Download data from BigQuery (30 & 90 day reports)"
+	@echo "    make process               Generate all charts from downloaded data"
 	@echo ""
 	@echo "  SETUP (run these in order the first time):"
 	@echo "    make deps                      Install system packages (gcloud SDK)"
@@ -54,6 +102,33 @@ help:
 	@echo "    make installer          Downloads by installer (pip, poetry, uv...)"
 	@echo "    make python-ver         Downloads by Python version"
 	@echo "    make trend              Daily download trend (last N days)"
+	@echo ""
+	@echo "  DEPLOYMENT VISUALIZATIONS:"
+	@echo "    make viz-deploy         Generate all deployment environment charts"
+	@echo "    make viz-deploy-30      Generate 30-day deployment charts"
+	@echo "    make viz-deploy-90      Generate 90-day deployment charts"
+	@echo ""
+	@echo "  DEPLOYMENT ENVIRONMENT ANALYSIS:"
+	@echo "    make deploy-all         Run all deployment environment analytics"
+	@echo "    make deploy-summary     High-level deployment summary"
+	@echo "    make deploy-cloud       Cloud provider detection (AWS, GCP, Azure)"
+	@echo "    make deploy-containers  Container vs VM analysis"
+	@echo "    make deploy-arch        CPU architecture distribution"
+	@echo "    make deploy-enterprise  Enterprise vs cloud-native patterns"
+	@echo "    make deploy-use-cases   Compliance-trestle specific use cases"
+	@echo "    make deploy-geographic  Geographic distribution by platform"
+	@echo "    make deploy-libc        libc analysis (container signal)"
+	@echo ""
+	@echo "  USA-SPECIFIC ANALYSIS:"
+	@echo "    make usa-all            Run all USA-specific analytics"
+	@echo "    make usa-total          USA download totals and share"
+	@echo "    make usa-os             USA OS/distribution breakdown"
+	@echo "    make usa-ci             USA CI vs human usage"
+	@echo "    make usa-installer      USA installer preferences"
+	@echo "    make usa-python         USA Python version distribution"
+	@echo "    make usa-cpu            USA CPU architecture"
+	@echo "    make usa-time           USA download time patterns"
+	@echo "    make usa-enterprise     USA enterprise indicators"
 	@echo ""
 	@echo "  ADVANCED ANALYTICS:"
 	@echo "    make advanced-all       Run all advanced analytics"
@@ -438,6 +513,161 @@ mcp-analysis: check-creds venv
 	$(PYTHON) python/mcp_inference_analysis.py \
 		--package $(PACKAGE) \
 		--days $(DAYS) \
+		--project $(PROJECT_ID) \
+		--credentials $(CREDS_FILE) \
+		--output-dir reports
+
+# ------------------------------------------------------------------------------
+# Deployment Environment Analysis
+# ------------------------------------------------------------------------------
+DEPLOY_SCRIPT := python/query_deployment_environments.py
+
+.PHONY: deploy-all
+deploy-all: check-creds venv
+	@echo ">>> Running all deployment environment analytics for package: $(PACKAGE)"
+	$(PYTHON) $(DEPLOY_SCRIPT) all \
+		--package $(PACKAGE) \
+		--days $(DAYS) \
+		--project $(PROJECT_ID) \
+		--credentials $(CREDS_FILE)
+
+.PHONY: deploy-summary
+deploy-summary: check-creds venv
+	$(PYTHON) $(DEPLOY_SCRIPT) summary \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: deploy-cloud
+deploy-cloud: check-creds venv
+	$(PYTHON) $(DEPLOY_SCRIPT) cloud \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: deploy-containers
+deploy-containers: check-creds venv
+	$(PYTHON) $(DEPLOY_SCRIPT) containers \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: deploy-arch
+deploy-arch: check-creds venv
+	$(PYTHON) $(DEPLOY_SCRIPT) arch \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: deploy-enterprise
+deploy-enterprise: check-creds venv
+	$(PYTHON) $(DEPLOY_SCRIPT) enterprise \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: deploy-use-cases
+deploy-use-cases: check-creds venv
+	$(PYTHON) $(DEPLOY_SCRIPT) use_cases \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: deploy-geographic
+deploy-geographic: check-creds venv
+	$(PYTHON) $(DEPLOY_SCRIPT) geographic \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: deploy-libc
+deploy-libc: check-creds venv
+	$(PYTHON) $(DEPLOY_SCRIPT) libc \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+# ------------------------------------------------------------------------------
+# USA-Specific Analysis
+# ------------------------------------------------------------------------------
+.PHONY: usa-all
+usa-all: check-creds venv
+	@echo ">>> Running all USA-specific analytics for package: $(PACKAGE)"
+	$(PYTHON) $(QUERY_USA) all \
+		--package $(PACKAGE) \
+		--days $(DAYS) \
+		--project $(PROJECT_ID) \
+		--credentials $(CREDS_FILE)
+
+.PHONY: usa-total
+usa-total: check-creds venv
+	$(PYTHON) $(QUERY_USA) total \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: usa-os
+usa-os: check-creds venv
+	$(PYTHON) $(QUERY_USA) os \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: usa-ci
+usa-ci: check-creds venv
+	$(PYTHON) $(QUERY_USA) ci \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: usa-installer
+usa-installer: check-creds venv
+	$(PYTHON) $(QUERY_USA) installer \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: usa-python
+usa-python: check-creds venv
+	$(PYTHON) $(QUERY_USA) python \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: usa-cpu
+usa-cpu: check-creds venv
+	$(PYTHON) $(QUERY_USA) cpu \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: usa-time
+usa-time: check-creds venv
+	$(PYTHON) $(QUERY_USA) time \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+.PHONY: usa-enterprise
+usa-enterprise: check-creds venv
+	$(PYTHON) $(QUERY_USA) enterprise \
+		--package $(PACKAGE) --days $(DAYS) \
+		--project $(PROJECT_ID) --credentials $(CREDS_FILE)
+
+# ------------------------------------------------------------------------------
+# Deployment Visualizations
+# ------------------------------------------------------------------------------
+.PHONY: viz-deploy
+viz-deploy: check-creds venv
+	@echo ">>> Generating deployment environment charts for package: $(PACKAGE)"
+	$(PYTHON) $(VISUALIZE_DEPLOY) \
+		--package $(PACKAGE) \
+		--days $(DAYS) \
+		--project $(PROJECT_ID) \
+		--credentials $(CREDS_FILE) \
+		--output-dir reports
+
+.PHONY: viz-deploy-30
+viz-deploy-30: check-creds venv
+	@echo ">>> Generating 30-day deployment charts"
+	$(PYTHON) $(VISUALIZE_DEPLOY) \
+		--package $(PACKAGE) \
+		--days 30 \
+		--project $(PROJECT_ID) \
+		--credentials $(CREDS_FILE) \
+		--output-dir reports
+
+.PHONY: viz-deploy-90
+viz-deploy-90: check-creds venv
+	@echo ">>> Generating 90-day deployment charts"
+	$(PYTHON) $(VISUALIZE_DEPLOY) \
+		--package $(PACKAGE) \
+		--days 90 \
 		--project $(PROJECT_ID) \
 		--credentials $(CREDS_FILE) \
 		--output-dir reports

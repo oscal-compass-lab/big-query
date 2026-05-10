@@ -2,7 +2,7 @@
 
 **Package:** compliance-trestle  
 **Period:** Last 30 days  
-**Generated:** 2026-05-10 08:30:44
+**Generated:** 2026-05-10 09:08:32
 
 ---
 
@@ -49,8 +49,8 @@ MCP (Model Context Protocol) servers don't identify themselves in PyPI download 
 
 | Installer | Total | CI/CD | Non-CI | Non-CI % |
 |-----------|-------|-------|--------|----------|
-| pip | 56,786 | 46,644 | 10,142 | 17.9% |
-| uv | 16,070 | 8,704 | 7,366 | 45.8% |
+| pip | 56,788 | 46,646 | 10,142 | 17.9% |
+| uv | 16,082 | 8,716 | 7,366 | 45.8% |
 
 **Key Insight:** UV has 2.6x higher non-CI usage ratio than pip, suggesting more interactive/developer usage.
 
@@ -58,7 +58,7 @@ MCP (Model Context Protocol) servers don't identify themselves in PyPI download 
 
 Top UV subcommands:
 
-- `sync`: 7,769 (48.3%)
+- `sync`: 7,781 (48.4%)
 - `pip install`: 5,536 (34.4%)
 - `run`: 1,098 (6.8%)
 - `(no subcommand)`: 1,067 (6.6%)

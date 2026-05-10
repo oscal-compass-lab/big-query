@@ -100,7 +100,7 @@ def convert_to_iso3(code2: str) -> str:
 
 
 def create_map(df: pd.DataFrame, title: str, output_file: str):
-    """Create choropleth map visualization with vibrant colors."""
+    """Create choropleth map visualization with vibrant colors and colorbar legend."""
     if df.empty:
         print("No data to visualize!")
         return
@@ -131,6 +131,18 @@ def create_map(df: pd.DataFrame, title: str, output_file: str):
         height=700,
         font=dict(size=14),
         paper_bgcolor='white',
+        coloraxis_colorbar=dict(
+            title="Downloads",
+            thickness=20,
+            len=0.5,
+            x=0.02,  # Position at left
+            y=0.25,  # Position in lower left
+            xanchor='left',
+            yanchor='middle',
+            bgcolor='rgba(255,255,255,0.8)',
+            bordercolor='gray',
+            borderwidth=1
+        )
     )
     
     # Save as HTML (interactive)

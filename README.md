@@ -39,8 +39,6 @@ This repository contains BigQuery analytics tools and reports for the [complianc
 | 9 | 🇹🇼 Taiwan | 214 | 0.3% |
 | 10 | 🇪🇸 Spain | 197 | 0.3% |
 
-**[View Interactive 30-Day Map →](reports/2026.05.10.trestle.pypi.map-30.html)**
-
 ![30-Day Geographic Distribution](reports/2026.05.10.trestle.pypi.map-30.png)
 
 **Key Insights:**
@@ -50,8 +48,6 @@ This repository contains BigQuery analytics tools and reports for the [complianc
 - **48 countries total** demonstrates global reach for security/compliance tooling
 
 ### 90-Day Analysis
-
-**[View Interactive 90-Day Map →](reports/2026.05.10.trestle.pypi.map-90.html)**
 
 ![90-Day Geographic Distribution](reports/2026.05.10.trestle.pypi.map-90.png)
 
@@ -234,6 +230,198 @@ Increasing uvx frequency, growing trend
 
 ---
 
+## 🚀 Deployment Environment Analysis
+
+### Interactive Deployment Charts
+
+Analyze deployment environments beyond country-level data using `details.distro`, CPU architecture, and libc metadata.
+
+**To generate charts, run:**
+```bash
+make viz-deploy
+```
+
+This creates 8 interactive visualizations in `reports/` (both HTML and PNG):
+
+#### 1. Platform Distribution
+*Pie chart showing AWS (Amazon Linux), Containers (Alpine), Enterprise (RHEL), Ubuntu, Debian, macOS, Windows distribution*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![Platform Distribution 30d](reports/deployment_platforms_30day.png)
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![Platform Distribution 90d](reports/deployment_platforms_90day.png)
+
+</td>
+</tr></table>
+
+#### 2. Deployment Types
+*Horizontal bar chart breaking down: Containers (musl/Alpine), AWS CI/CD, AWS VMs, Enterprise VMs, CI Pipelines, Developer Macs, Windows*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![Deployment Types 30d](reports/deployment_types_30day.png)
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![Deployment Types 90d](reports/deployment_types_90day.png)
+
+</td>
+</tr></table>
+
+#### 3. Architecture Distribution
+*Stacked bar chart showing CPU architectures (x86_64 vs ARM/Graviton) by platform - reveals ARM adoption trends*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![Architecture 30d](reports/deployment_architecture_30day.png)
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![Architecture 90d](reports/deployment_architecture_90day.png)
+
+</td>
+</tr></table>
+
+#### 4. Geographic Deployment
+*Stacked bar chart of top 15 countries by deployment type - shows regional preferences (US developers vs EU enterprise)*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![Geographic 30d](reports/deployment_geographic_30day.png)
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![Geographic 90d](reports/deployment_geographic_90day.png)
+
+</td>
+</tr></table>
+
+#### 5. Enterprise vs Cloud-Native
+*Sunburst chart with hierarchical view: Enterprise (RHEL/Oracle/SUSE), Cloud-Native (Alpine/AWS CI/Ubuntu CI), Developer (macOS), Corporate (Windows) - each split by CI/CD vs Interactive*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![Enterprise vs Cloud 30d](reports/deployment_enterprise_cloud_30day.png)
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![Enterprise vs Cloud 90d](reports/deployment_enterprise_cloud_90day.png)
+
+</td>
+</tr></table>
+
+#### 6. libc Distribution
+*Treemap showing glibc vs musl distribution (musl = containerized deployments) broken down by distro*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![libc Distribution 30d](reports/deployment_libc_30day.png)
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![libc Distribution 90d](reports/deployment_libc_90day.png)
+
+</td>
+</tr></table>
+
+#### 7. Compliance Use Cases
+*Donut chart specific to compliance-trestle: C2P Pipeline (Alpine+CI), AWS Automation (Amazon Linux+CI), Gov/DoD Compliance (RHEL), CI Compliance (Ubuntu+CI), Development (macOS), SDK Usage (Windows)*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![Use Cases 30d](reports/deployment_use_cases_30day.png)
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![Use Cases 90d](reports/deployment_use_cases_90day.png)
+
+</td>
+</tr></table>
+
+#### 8. Summary Dashboard
+*Horizontal bar chart showing key deployment metrics with percentages: Container adoption (Alpine), AWS usage, Enterprise deployment (RHEL), CI/CD pipelines, ARM architecture adoption, musl libc usage (containers)*
+
+<table><tr>
+<td width="50%">
+
+**30 Days**
+
+![Summary Dashboard 30d](reports/deployment_summary_30day.png)
+
+</td>
+<td width="50%">
+
+**90 Days**
+
+![Summary Dashboard 90d](reports/deployment_summary_90day.png)
+
+</td>
+</tr></table>
+
+### Key Deployment Insights
+
+**What We Can Detect:**
+- ✅ **Cloud Providers** - AWS (Amazon Linux), GCP (Debian), Oracle Cloud via distro signatures
+- ✅ **Containers** - Alpine Linux and musl libc indicate Docker/Kubernetes deployments
+- ✅ **ARM Adoption** - AWS Graviton (aarch64 + Amazon Linux) and Apple Silicon (arm64 + macOS)
+- ✅ **Enterprise** - RHEL indicates Government/DoD, Oracle/SUSE for enterprise
+- ✅ **C2P Pipelines** - Alpine + CI = Kyverno policy generation in Kubernetes
+
+**Generate Charts:**
+```bash
+make viz-deploy-30  # 30-day analysis
+make viz-deploy-90  # 90-day analysis
+```
+
+For detailed methodology, see **[DEPLOYMENT_ANALYSIS.md](DEPLOYMENT_ANALYSIS.md)**
+
+---
+
 ## 💻 Platform & Technology Analysis
 
 ### Operating Systems (30 Days)
@@ -313,9 +501,10 @@ Increasing uvx frequency, growing trend
 
 - **[HOWTO.md](HOWTO.md)** - Complete setup and usage guide
 - **[BIGQUERY_SCHEMA.md](BIGQUERY_SCHEMA.md)** - BigQuery dataset schema documentation
-- **[Makefile](Makefile)** - 41 automated commands for analytics
+- **[DEPLOYMENT_ANALYSIS.md](DEPLOYMENT_ANALYSIS.md)** - Deployment environment analysis guide
+- **[Makefile](Makefile)** - 50+ automated commands for analytics
 - **[python/](python/)** - Python scripts for querying and visualization
-- **[reports/](reports/)** - Generated reports, maps, and MCP analysis
+- **[reports/](reports/)** - Generated reports, maps, charts, and analysis
 
 ### Quick Start
 
@@ -325,6 +514,9 @@ make reports
 
 # Generate world maps
 make maps
+
+# Generate deployment environment charts
+make viz-deploy
 
 # Generate MCP inference analysis
 make mcp-analysis
