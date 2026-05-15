@@ -52,7 +52,8 @@ def extract_countries(report_content: str) -> int:
             continue
         if in_countries:
             if line.strip().startswith('│') and '│' in line[1:]:
-                if not any(x in line for x in ['country_code', '─', '═']):
+                # Skip header row and separator lines
+                if not any(x in line.lower() for x in ['country code', 'country_code', '─', '═']):
                     country_count += 1
             elif line.strip() and not line.strip().startswith('│'):
                 break
@@ -82,15 +83,17 @@ def extract_uv_percentage(report_content: str) -> float:
         if in_installer:
             if line.strip().startswith('│') and '│' in line[1:]:
                 parts = [p.strip() for p in line.split('│')]
-                if len(parts) >= 3 and parts[1] and parts[1] not in ['Installer', 'installer', '─', '═']:
-                    try:
-                        installer_name = parts[1].lower()
-                        download_count = int(parts[2].replace(',', ''))
-                        total_downloads += download_count
-                        if installer_name == 'uv':
-                            uv_downloads = download_count
-                    except (ValueError, IndexError):
-                        pass
+                if len(parts) >= 3 and parts[1]:
+                    # Skip header and separator lines
+                    if parts[1].lower() not in ['installer', '─', '═'] and '─' not in parts[1]:
+                        try:
+                            installer_name = parts[1].lower()
+                            download_count = int(parts[2].replace(',', ''))
+                            total_downloads += download_count
+                            if installer_name == 'uv':
+                                uv_downloads = download_count
+                        except (ValueError, IndexError):
+                            pass
             elif line.strip() and not line.strip().startswith('│'):
                 break
     
