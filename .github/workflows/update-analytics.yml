@@ -95,13 +95,18 @@ jobs:
           
           REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-30.txt"
           
-          python python/query.py all \
-            --package ${{ env.PACKAGE }} \
-            --days 30 \
-            --project ${{ secrets.GCP_PROJECT_ID }} \
-            --credentials credentials.json > "$REPORT_FILE"
-          
-          echo "✓ 30-day report saved to: $REPORT_FILE"
+          if [ -f "$REPORT_FILE" ]; then
+            echo "⚠ Report already exists: $REPORT_FILE"
+            echo "Skipping query to avoid quota usage (same day run)"
+          else
+            python python/query.py all \
+              --package ${{ env.PACKAGE }} \
+              --days 30 \
+              --project ${{ secrets.GCP_PROJECT_ID }} \
+              --credentials credentials.json > "$REPORT_FILE"
+            
+            echo "✓ 30-day report saved to: $REPORT_FILE"
+          fi
       
       - name: Generate 90-day reports
         if: github.event_name == 'schedule' || github.event.inputs.days_90 == 'true'
@@ -114,13 +119,18 @@ jobs:
           
           REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-90.txt"
           
-          python python/query.py all \
-            --package ${{ env.PACKAGE }} \
-            --days 90 \
-            --project ${{ secrets.GCP_PROJECT_ID }} \
-            --credentials credentials.json > "$REPORT_FILE"
-          
-          echo "✓ 90-day report saved to: $REPORT_FILE"
+          if [ -f "$REPORT_FILE" ]; then
+            echo "⚠ Report already exists: $REPORT_FILE"
+            echo "Skipping query to avoid quota usage (same day run)"
+          else
+            python python/query.py all \
+              --package ${{ env.PACKAGE }} \
+              --days 90 \
+              --project ${{ secrets.GCP_PROJECT_ID }} \
+              --credentials credentials.json > "$REPORT_FILE"
+            
+            echo "✓ 90-day report saved to: $REPORT_FILE"
+          fi
       
       - name: Generate world maps
         env:
@@ -151,23 +161,45 @@ jobs:
           echo "=========================================="
           
           if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.days_30 }}" == "true" ]; then
-            echo "Generating 30-day MCP analysis..."
-            python python/mcp_inference_analysis.py \
-              --package ${{ env.PACKAGE }} \
-              --days 30 \
-              --project ${{ secrets.GCP_PROJECT_ID }} \
-              --credentials credentials.json \
-              --output-dir reports
+            REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-30.txt"
+            if [ -f "$REPORT_FILE" ]; then
+              echo "Using existing 30-day report data, regenerating charts..."
+              python python/mcp_inference_analysis.py \
+                --package ${{ env.PACKAGE }} \
+                --days 30 \
+                --project ${{ secrets.GCP_PROJECT_ID }} \
+                --credentials credentials.json \
+                --output-dir reports
+            else
+              echo "Generating 30-day MCP analysis..."
+              python python/mcp_inference_analysis.py \
+                --package ${{ env.PACKAGE }} \
+                --days 30 \
+                --project ${{ secrets.GCP_PROJECT_ID }} \
+                --credentials credentials.json \
+                --output-dir reports
+            fi
           fi
           
           if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.days_90 }}" == "true" ]; then
-            echo "Generating 90-day MCP analysis..."
-            python python/mcp_inference_analysis.py \
-              --package ${{ env.PACKAGE }} \
-              --days 90 \
-              --project ${{ secrets.GCP_PROJECT_ID }} \
-              --credentials credentials.json \
-              --output-dir reports
+            REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-90.txt"
+            if [ -f "$REPORT_FILE" ]; then
+              echo "Using existing 90-day report data, regenerating charts..."
+              python python/mcp_inference_analysis.py \
+                --package ${{ env.PACKAGE }} \
+                --days 90 \
+                --project ${{ secrets.GCP_PROJECT_ID }} \
+                --credentials credentials.json \
+                --output-dir reports
+            else
+              echo "Generating 90-day MCP analysis..."
+              python python/mcp_inference_analysis.py \
+                --package ${{ env.PACKAGE }} \
+                --days 90 \
+                --project ${{ secrets.GCP_PROJECT_ID }} \
+                --credentials credentials.json \
+                --output-dir reports
+            fi
           fi
           
           echo "✓ MCP analysis complete"
@@ -181,23 +213,45 @@ jobs:
           echo "=========================================="
           
           if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.days_30 }}" == "true" ]; then
-            echo "Generating 30-day deployment charts..."
-            python python/visualize_deployment.py \
-              --package ${{ env.PACKAGE }} \
-              --days 30 \
-              --project ${{ secrets.GCP_PROJECT_ID }} \
-              --credentials credentials.json \
-              --output-dir reports
+            REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-30.txt"
+            if [ -f "$REPORT_FILE" ]; then
+              echo "Using existing 30-day report data, regenerating charts..."
+              python python/visualize_deployment.py \
+                --package ${{ env.PACKAGE }} \
+                --days 30 \
+                --project ${{ secrets.GCP_PROJECT_ID }} \
+                --credentials credentials.json \
+                --output-dir reports
+            else
+              echo "Generating 30-day deployment charts..."
+              python python/visualize_deployment.py \
+                --package ${{ env.PACKAGE }} \
+                --days 30 \
+                --project ${{ secrets.GCP_PROJECT_ID }} \
+                --credentials credentials.json \
+                --output-dir reports
+            fi
           fi
           
           if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.days_90 }}" == "true" ]; then
-            echo "Generating 90-day deployment charts..."
-            python python/visualize_deployment.py \
-              --package ${{ env.PACKAGE }} \
-              --days 90 \
-              --project ${{ secrets.GCP_PROJECT_ID }} \
-              --credentials credentials.json \
-              --output-dir reports
+            REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-90.txt"
+            if [ -f "$REPORT_FILE" ]; then
+              echo "Using existing 90-day report data, regenerating charts..."
+              python python/visualize_deployment.py \
+                --package ${{ env.PACKAGE }} \
+                --days 90 \
+                --project ${{ secrets.GCP_PROJECT_ID }} \
+                --credentials credentials.json \
+                --output-dir reports
+            else
+              echo "Generating 90-day deployment charts..."
+              python python/visualize_deployment.py \
+                --package ${{ env.PACKAGE }} \
+                --days 90 \
+                --project ${{ secrets.GCP_PROJECT_ID }} \
+                --credentials credentials.json \
+                --output-dir reports
+            fi
           fi
           
           echo "✓ Deployment visualizations complete"
