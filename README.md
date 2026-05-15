@@ -5,6 +5,7 @@
 This repository contains BigQuery analytics tools and reports for the [compliance-trestle](https://github.com/oscal-compass/compliance-trestle) Python package, part of the OSCAL Compass project.
 
 **Report Date:** May 15, 2026
+*Updated weekly by CI/CD pipeline*
 
 ---
 
