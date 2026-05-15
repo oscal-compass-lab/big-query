@@ -25,7 +25,23 @@ def extract_total_downloads(report_content: str) -> int:
 
 def extract_countries(report_content: str) -> int:
     """Extract number of countries from report."""
-    # Count rows in the countries table (excluding header and separators)
+    match = re.search(
+        r'(\d+)\s+countries?\s+total',
+        report_content,
+        re.IGNORECASE
+    )
+    if match:
+        return int(match.group(1))
+
+    match = re.search(
+        r'countries?\s+reached.*?\(?up from\s+(\d+)',
+        report_content,
+        re.IGNORECASE
+    )
+    if match:
+        return int(match.group(1))
+
+    # Fallback: count rows in the countries table (excluding header and separators)
     lines = report_content.split('\n')
     in_countries = False
     country_count = 0
@@ -36,11 +52,9 @@ def extract_countries(report_content: str) -> int:
             continue
         if in_countries:
             if line.strip().startswith('│') and '│' in line[1:]:
-                # This is a data row
                 if not any(x in line for x in ['country_code', '─', '═']):
                     country_count += 1
             elif line.strip() and not line.strip().startswith('│'):
-                # End of table
                 break
     
     return country_count
@@ -55,8 +69,7 @@ def extract_ci_percentage(report_content: str) -> int:
 
 
 def extract_uv_percentage(report_content: str) -> float:
-    """Extract UV market share from report."""
-    # Look for UV in installer section
+    """Extract UV percentage of installer-attributed downloads from report."""
     lines = report_content.split('\n')
     in_installer = False
     total_downloads = 0
@@ -67,19 +80,16 @@ def extract_uv_percentage(report_content: str) -> float:
             in_installer = True
             continue
         if in_installer:
-            if 'uv' in line.lower() and '│' in line:
-                parts = line.split('│')
-                if len(parts) >= 3:
+            if line.strip().startswith('│') and '│' in line[1:]:
+                parts = [p.strip() for p in line.split('│')]
+                if len(parts) >= 3 and parts[1] and parts[1] not in ['Installer', 'installer', '─', '═']:
                     try:
-                        uv_downloads = int(parts[2].strip().replace(',', ''))
-                    except:
-                        pass
-            elif line.strip().startswith('│') and '│' in line[1:]:
-                parts = line.split('│')
-                if len(parts) >= 3 and parts[2].strip().replace(',', '').isdigit():
-                    try:
-                        total_downloads += int(parts[2].strip().replace(',', ''))
-                    except:
+                        installer_name = parts[1].lower()
+                        download_count = int(parts[2].replace(',', ''))
+                        total_downloads += download_count
+                        if installer_name == 'uv':
+                            uv_downloads = download_count
+                    except (ValueError, IndexError):
                         pass
             elif line.strip() and not line.strip().startswith('│'):
                 break
@@ -164,7 +174,7 @@ def update_readme(report_30_path: str, report_90_path: str, readme_path: str = '
 | **Total Downloads** | {downloads_30:,} | {downloads_90:,} |
 | **Countries Reached** | {countries_30} | {countries_90} |
 | **CI/CD Installs** | {ci_30}% | {ci_90}% |
-| **UV Market Share** | {uv_30}% | {uv_90}% |
+| **UV Adoption** | {uv_30}% | {uv_90}% |
 | **Confirmed MCP Usage** | {mcp_30_count} ({mcp_30_pct}%) | {mcp_90_count} ({mcp_90_pct}%) |"""
     
     # Replace the metrics table
