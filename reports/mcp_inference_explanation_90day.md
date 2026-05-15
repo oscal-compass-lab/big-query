@@ -2,14 +2,14 @@
 
 **Package:** compliance-trestle  
 **Period:** Last 90 days  
-**Generated:** 2026-05-15 13:15:55
+**Generated:** 2026-05-15 13:38:11
 
 ---
 
 ## Executive Summary
 
 **Confirmed MCP Pattern:** 305 downloads using `uvx` subcommand  
-**Potential MCP Range:** 305 - 14,986 downloads  
+**Potential MCP Range:** 305 - 14,988 downloads  
 **UV Market Share:** 18.1% of all installs
 
 ---
@@ -26,13 +26,13 @@ MCP (Model Context Protocol) servers don't identify themselves in PyPI download 
 - **What it is:** `uvx` is uv's tool for running Python applications
 - **Why it matters:** Claude Desktop's MCP configuration uses `"command": "uvx mcp-server-*"`
 - **Confidence:** HIGH - This is the exact pattern MCP uses
-- **Finding:** 305 downloads (1.02% of UV usage)
+- **Finding:** 305 downloads (1.01% of UV usage)
 
 #### 2. **UV Non-CI Usage (Moderate Signal)**
 - **What it is:** UV downloads not flagged as CI/CD environments
 - **Why it matters:** MCP servers run on developer machines, not in CI
 - **Confidence:** MEDIUM - Could also be regular developers using UV
-- **Finding:** 14,986 non-CI UV downloads (49.9% of UV)
+- **Finding:** 14,988 non-CI UV downloads (49.9% of UV)
 - **Comparison:** pip has 25.8% non-CI usage
 
 #### 3. **UV Market Share Growth (Weak Signal)**
@@ -49,8 +49,8 @@ MCP (Model Context Protocol) servers don't identify themselves in PyPI download 
 
 | Installer | Total | CI/CD | Non-CI | Non-CI % |
 |-----------|-------|-------|--------|----------|
-| pip | 132,839 | 98,586 | 34,253 | 25.8% |
-| uv | 30,046 | 15,060 | 14,986 | 49.9% |
+| pip | 132,944 | 98,689 | 34,255 | 25.8% |
+| uv | 30,061 | 15,073 | 14,988 | 49.9% |
 
 **Key Insight:** UV has 1.9x higher non-CI usage ratio than pip, suggesting more interactive/developer usage.
 
@@ -58,13 +58,13 @@ MCP (Model Context Protocol) servers don't identify themselves in PyPI download 
 
 Top UV subcommands:
 
-- `sync`: 14,129 (47.0%)
+- `sync`: 14,143 (47.0%)
 - `pip install`: 10,168 (33.8%)
 - `run`: 2,206 (7.3%)
 - `tool install`: 1,929 (6.4%)
 - `(no subcommand)`: 1,141 (3.8%)
 - `uvx`: 305 (1.0%) ← **MCP PATTERN**
-- `lock`: 87 (0.3%)
+- `lock`: 88 (0.3%)
 - `pip compile`: 45 (0.1%)
 - `add`: 26 (0.1%)
 - `tool run`: 4 (0.0%)
@@ -82,7 +82,7 @@ Top UV subcommands:
 - Estimated 0.55% of all downloads
 
 **Upper Bound (Low Confidence):**
-- Up to 14,986 downloads
+- Up to 14,988 downloads
 - All non-CI UV usage could theoretically include MCP
 - But most are likely regular UV users
 - Represents 9.0% of all downloads

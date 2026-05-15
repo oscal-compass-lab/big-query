@@ -14,10 +14,10 @@ This repository contains BigQuery analytics tools and reports for the [complianc
 
 | Metric | 30 Days | 90 Days |
 |--------|---------|---------|
-| **Total Downloads** | 84,522 | 178,490 |
+| **Total Downloads** | 84,642 | 178,610 |
 | **Countries Reached** | 0 | 0 |
 | **CI/CD Installs** | 69% | 63% |
-| **UV Market Share** | 0.0% | 0.0% |
+| **UV Adoption** | 0.0% | 0.0% |
 | **Confirmed MCP Usage** | 109 (0.13%) | 305 (0.17%) |
 
 ---
