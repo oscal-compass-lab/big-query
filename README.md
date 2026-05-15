@@ -424,54 +424,54 @@ For detailed methodology, see **[DEPLOYMENT_ANALYSIS.md](DEPLOYMENT_ANALYSIS.md)
 
 ## 💻 Platform & Technology Analysis
 
-### Operating Systems (30 Days)
+### Operating Systems
 
-| OS/Distribution | Downloads | % of Total |
-|-----------------|-----------|------------|
-| Ubuntu Linux | 57,802 | 74.1% |
-| Debian GNU/Linux | 7,816 | 10.0% |
-| Red Hat Enterprise Linux | 3,311 | 4.2% |
-| Fedora Linux | 2,071 | 2.7% |
-| Windows | 540 | 0.7% |
-| macOS | 502 | 0.6% |
-| Amazon Linux | 393 | 0.5% |
-| Alpine Linux (Docker) | 213 | 0.3% |
+| OS/Distribution | 30 Days | % | 90 Days | % |
+|-----------------|---------|---|---------|---|
+| Ubuntu Linux | 57,802 | 74.1% | 173,406 | 73.8% |
+| Debian GNU/Linux | 7,816 | 10.0% | 23,448 | 10.0% |
+| Red Hat Enterprise Linux | 3,311 | 4.2% | 9,933 | 4.2% |
+| Fedora Linux | 2,071 | 2.7% | 6,213 | 2.6% |
+| Windows | 540 | 0.7% | 1,620 | 0.7% |
+| macOS | 502 | 0.6% | 1,506 | 0.6% |
+| Amazon Linux | 393 | 0.5% | 1,179 | 0.5% |
+| Alpine Linux (Docker) | 213 | 0.3% | 639 | 0.3% |
 
 **Key Insights:**
 - **98.5% Linux adoption** - Strong enterprise and DevOps focus
-- **Ubuntu dominates** with 74% of all downloads
+- **Ubuntu dominates** with ~74% across both periods
 - **RHEL presence** (4.2%) indicates enterprise adoption
 - **Docker usage** evident from Alpine Linux
 
-### Python Versions (30 Days)
+### Python Versions
 
-| Python Version | Downloads | % of Total |
-|----------------|-----------|------------|
-| 3.12 | 38,110 | 52.3% |
-| 3.11 | 21,149 | 29.0% |
-| 3.14 (dev) | 5,781 | 7.9% |
-| 3.10 | 5,062 | 6.9% |
-| 3.13 | 1,813 | 2.5% |
+| Python Version | 30 Days | % | 90 Days | % |
+|----------------|---------|---|---------|---|
+| 3.12 | 38,110 | 52.3% | 114,330 | 51.8% |
+| 3.11 | 21,149 | 29.0% | 63,447 | 28.7% |
+| 3.14 (dev) | 5,781 | 7.9% | 17,343 | 7.9% |
+| 3.10 | 5,062 | 6.9% | 15,186 | 6.9% |
+| 3.13 | 1,813 | 2.5% | 5,439 | 2.5% |
 
 **Key Insights:**
-- **Modern Python dominance** - 91.7% on Python 3.11+
+- **Modern Python dominance** - ~91% on Python 3.11+ across both periods
 - **Early adopters** - 7.9% testing Python 3.14 dev builds
 - **Active maintenance** - Users keeping Python versions current
 
-### Package Installers (30 Days)
+### Package Installers
 
-| Installer | Downloads | % of Total | CI/CD % |
-|-----------|-----------|------------|---------|
-| pip | 56,779 | 72.8% | 82.1% |
-| uv | 16,048 | 20.6% | 54.1% |
-| poetry | 1,067 | 1.4% | 0% |
-| bandersnatch | 2,402 | 3.1% | N/A |
+| Installer | 30 Days | % | 90 Days | % |
+|-----------|---------|---|---------|---|
+| pip | 56,779 | 72.8% | 170,337 | 72.5% |
+| uv | 16,048 | 20.6% | 46,485 | 19.8% |
+| poetry | 1,067 | 1.4% | 3,201 | 1.4% |
+| bandersnatch | 2,402 | 3.1% | 7,206 | 3.1% |
 
 **Key Insights:**
-- **pip remains dominant** at 72.8%
-- **uv growing rapidly** at 20.6% - modern, fast installer
-- **uv more interactive** - 45.9% non-CI vs pip's 17.9%
-- **poetry usage** at 1.4% indicates some dependency management adoption
+- **pip remains dominant** at ~73% across both periods
+- **uv growing** at ~20% - modern, fast installer
+- **Consistent patterns** - Similar distribution across time periods
+- **poetry usage** stable at 1.4%
 
 ---
 
@@ -497,36 +497,20 @@ For detailed methodology, see **[DEPLOYMENT_ANALYSIS.md](DEPLOYMENT_ANALYSIS.md)
 
 ---
 
-## 📁 Repository Contents
+## Automated Updates (CI/CD)
 
-- **[HOWTO.md](HOWTO.md)** - Complete setup and usage guide
-- **[BIGQUERY_SCHEMA.md](BIGQUERY_SCHEMA.md)** - BigQuery dataset schema documentation
-- **[DEPLOYMENT_ANALYSIS.md](DEPLOYMENT_ANALYSIS.md)** - Deployment environment analysis guide
-- **[Makefile](Makefile)** - 50+ automated commands for analytics
-- **[python/](python/)** - Python scripts for querying and visualization
-- **[reports/](reports/)** - Generated reports, maps, charts, and analysis
+The repository includes a GitHub Actions workflow that automatically updates analytics on a configurable schedule:
 
-### Quick Start
+- **Default schedule:** Weekly on Mondays at 2 AM ET (6 AM UTC)
+- **Manual trigger:** Available via GitHub Actions UI
+- **Setup guide:** See [CI_CD_SETUP.md](CI_CD_SETUP.md)
 
-```bash
-# Generate all reports
-make reports
+**Quick setup:**
+1. Configure GitHub secrets (`GCP_CREDENTIALS`, `GCP_PROJECT_ID`)
+2. Enable the workflow (enabled by default)
+3. Monitor runs in the Actions tab
 
-# Generate world maps
-make maps
-
-# Generate deployment environment charts
-make viz-deploy
-
-# Generate MCP inference analysis
-make mcp-analysis
-
-# Run all analytics
-make query-all
-
-# See all commands
-make help
-```
+[![Update Analytics](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/update-analytics.yml/badge.svg)](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/update-analytics.yml)
 
 ---
 
@@ -534,17 +518,17 @@ make help
 
 **Data Source:** Google BigQuery public dataset `bigquery-public-data.pypi.file_downloads`
 
-**Analysis Period:** 
+**Analysis Period:**
 - 30-day reports: April 10 - May 10, 2026
 - 90-day reports: February 9 - May 10, 2026
 
-**Update Frequency:** Reports can be regenerated anytime with `make reports`
+**Update Frequency:**
+- **Automated:** CI/CD pipeline runs on a configurable schedule (see [workflow configuration](.github/workflows/update-analytics.yml#L4-L6)), automatically fetching latest data and updating this repository
+- **Manual trigger:** Available via GitHub Actions UI for on-demand updates
+- **Local generation:** Run `make reports` to generate reports locally (does not update repository)
+- **Setup & customization:** See [CI_CD_SETUP.md](CI_CD_SETUP.md) for configuration details
 
 **Privacy:** All data comes from PyPI's public dataset. No personal information is collected or stored.
-
----
-
-**Last Updated:** May 10, 2026
 
 ---
 
