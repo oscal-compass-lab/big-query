@@ -4,7 +4,7 @@
 
 This repository contains BigQuery analytics tools and reports for the [compliance-trestle](https://github.com/oscal-compass/compliance-trestle) Python package, part of the OSCAL Compass project.
 
-**Report Date:** May 10, 2026
+**Report Date:** May 15, 2026
 
 ---
 
@@ -12,11 +12,11 @@ This repository contains BigQuery analytics tools and reports for the [complianc
 
 | Metric | 30 Days | 90 Days |
 |--------|---------|---------|
-| **Total Downloads** | 77,964 | 234,892 |
-| **Countries Reached** | 48 | 65 |
-| **CI/CD Installs** | 71% | 72% |
-| **UV Market Share** | 20.6% | 19.8% |
-| **Confirmed MCP Usage** | 101 (0.13%) | 303 (0.13%) |
+| **Total Downloads** | 84,522 | 178,490 |
+| **Countries Reached** | 0 | 0 |
+| **CI/CD Installs** | 69% | 63% |
+| **UV Market Share** | 0.0% | 0.0% |
+| **Confirmed MCP Usage** | 109 (0.13%) | 305 (0.17%) |
 
 ---
 
@@ -428,14 +428,6 @@ For detailed methodology, see **[DEPLOYMENT_ANALYSIS.md](DEPLOYMENT_ANALYSIS.md)
 
 | OS/Distribution | 30 Days | % | 90 Days | % |
 |-----------------|---------|---|---------|---|
-| Ubuntu Linux | 57,802 | 74.1% | 173,406 | 73.8% |
-| Debian GNU/Linux | 7,816 | 10.0% | 23,448 | 10.0% |
-| Red Hat Enterprise Linux | 3,311 | 4.2% | 9,933 | 4.2% |
-| Fedora Linux | 2,071 | 2.7% | 6,213 | 2.6% |
-| Windows | 540 | 0.7% | 1,620 | 0.7% |
-| macOS | 502 | 0.6% | 1,506 | 0.6% |
-| Amazon Linux | 393 | 0.5% | 1,179 | 0.5% |
-| Alpine Linux (Docker) | 213 | 0.3% | 639 | 0.3% |
 
 **Key Insights:**
 - **98.5% Linux adoption** - Strong enterprise and DevOps focus
@@ -447,11 +439,6 @@ For detailed methodology, see **[DEPLOYMENT_ANALYSIS.md](DEPLOYMENT_ANALYSIS.md)
 
 | Python Version | 30 Days | % | 90 Days | % |
 |----------------|---------|---|---------|---|
-| 3.12 | 38,110 | 52.3% | 114,330 | 51.8% |
-| 3.11 | 21,149 | 29.0% | 63,447 | 28.7% |
-| 3.14 (dev) | 5,781 | 7.9% | 17,343 | 7.9% |
-| 3.10 | 5,062 | 6.9% | 15,186 | 6.9% |
-| 3.13 | 1,813 | 2.5% | 5,439 | 2.5% |
 
 **Key Insights:**
 - **Modern Python dominance** - ~91% on Python 3.11+ across both periods
@@ -462,10 +449,6 @@ For detailed methodology, see **[DEPLOYMENT_ANALYSIS.md](DEPLOYMENT_ANALYSIS.md)
 
 | Installer | 30 Days | % | 90 Days | % |
 |-----------|---------|---|---------|---|
-| pip | 56,779 | 72.8% | 170,337 | 72.5% |
-| uv | 16,048 | 20.6% | 46,485 | 19.8% |
-| poetry | 1,067 | 1.4% | 3,201 | 1.4% |
-| bandersnatch | 2,402 | 3.1% | 7,206 | 3.1% |
 
 **Key Insights:**
 - **pip remains dominant** at ~73% across both periods

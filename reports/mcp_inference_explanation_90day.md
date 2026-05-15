@@ -2,15 +2,15 @@
 
 **Package:** compliance-trestle  
 **Period:** Last 90 days  
-**Generated:** 2026-05-10 09:08:44
+**Generated:** 2026-05-15 13:15:55
 
 ---
 
 ## Executive Summary
 
-**Confirmed MCP Pattern:** 317 downloads using `uvx` subcommand  
-**Potential MCP Range:** 317 - 13,775 downloads  
-**UV Market Share:** 15.4% of all installs
+**Confirmed MCP Pattern:** 305 downloads using `uvx` subcommand  
+**Potential MCP Range:** 305 - 14,986 downloads  
+**UV Market Share:** 18.1% of all installs
 
 ---
 
@@ -26,20 +26,20 @@ MCP (Model Context Protocol) servers don't identify themselves in PyPI download 
 - **What it is:** `uvx` is uv's tool for running Python applications
 - **Why it matters:** Claude Desktop's MCP configuration uses `"command": "uvx mcp-server-*"`
 - **Confidence:** HIGH - This is the exact pattern MCP uses
-- **Finding:** 317 downloads (1.25% of UV usage)
+- **Finding:** 305 downloads (1.02% of UV usage)
 
 #### 2. **UV Non-CI Usage (Moderate Signal)**
 - **What it is:** UV downloads not flagged as CI/CD environments
 - **Why it matters:** MCP servers run on developer machines, not in CI
 - **Confidence:** MEDIUM - Could also be regular developers using UV
-- **Finding:** 13,775 non-CI UV downloads (54.2% of UV)
-- **Comparison:** pip has 23.7% non-CI usage
+- **Finding:** 14,986 non-CI UV downloads (49.9% of UV)
+- **Comparison:** pip has 25.8% non-CI usage
 
 #### 3. **UV Market Share Growth (Weak Signal)**
 - **What it is:** UV's overall adoption rate
 - **Why it matters:** MCP adoption drives some UV growth
 - **Confidence:** LOW - UV growth has many drivers beyond MCP
-- **Finding:** UV has 15.4% market share
+- **Finding:** UV has 18.1% market share
 
 ---
 
@@ -49,43 +49,43 @@ MCP (Model Context Protocol) servers don't identify themselves in PyPI download 
 
 | Installer | Total | CI/CD | Non-CI | Non-CI % |
 |-----------|-------|-------|--------|----------|
-| pip | 137,440 | 104,822 | 32,618 | 23.7% |
-| uv | 25,433 | 11,658 | 13,775 | 54.2% |
+| pip | 132,839 | 98,586 | 34,253 | 25.8% |
+| uv | 30,046 | 15,060 | 14,986 | 49.9% |
 
-**Key Insight:** UV has 2.3x higher non-CI usage ratio than pip, suggesting more interactive/developer usage.
+**Key Insight:** UV has 1.9x higher non-CI usage ratio than pip, suggesting more interactive/developer usage.
 
 ### UV Subcommand Analysis
 
 Top UV subcommands:
 
-- `sync`: 11,255 (44.3%)
-- `pip install`: 9,274 (36.5%)
-- `run`: 1,876 (7.4%)
-- `tool install`: 1,391 (5.5%)
-- `(no subcommand)`: 1,152 (4.5%)
-- `uvx`: 317 (1.2%) ← **MCP PATTERN**
-- `lock`: 72 (0.3%)
-- `pip compile`: 62 (0.2%)
-- `add`: 24 (0.1%)
+- `sync`: 14,129 (47.0%)
+- `pip install`: 10,168 (33.8%)
+- `run`: 2,206 (7.3%)
+- `tool install`: 1,929 (6.4%)
+- `(no subcommand)`: 1,141 (3.8%)
+- `uvx`: 305 (1.0%) ← **MCP PATTERN**
+- `lock`: 87 (0.3%)
+- `pip compile`: 45 (0.1%)
+- `add`: 26 (0.1%)
 - `tool run`: 4 (0.0%)
 
 ### MCP Usage Estimates
 
 **Conservative (High Confidence):**
-- 317 downloads using explicit `uvx` pattern
-- This is 0.19% of all downloads
+- 305 downloads using explicit `uvx` pattern
+- This is 0.18% of all downloads
 - Represents confirmed MCP-compatible usage
 
 **Moderate (Medium Confidence):**
-- 317 - 1,585 downloads
+- 305 - 1,525 downloads
 - Includes `uvx` plus some `uv run` and `tool install` commands
-- Estimated 0.57% of all downloads
+- Estimated 0.55% of all downloads
 
 **Upper Bound (Low Confidence):**
-- Up to 13,775 downloads
+- Up to 14,986 downloads
 - All non-CI UV usage could theoretically include MCP
 - But most are likely regular UV users
-- Represents 8.3% of all downloads
+- Represents 9.0% of all downloads
 
 ---
 
@@ -94,13 +94,13 @@ Top UV subcommands:
 ### What This Tells Us
 
 1. **MCP adoption is real but emerging**
-   - 317 confirmed MCP-pattern downloads
+   - 305 confirmed MCP-pattern downloads
    - Growing but still early adoption phase
-   - Represents 0.191% of total package usage
+   - Represents 0.184% of total package usage
 
 2. **UV growth is significant**
-   - 15.4% market share (vs pip's 83.0%)
-   - 54.2% non-CI usage (vs pip's 23.7%)
+   - 18.1% market share (vs pip's 80.1%)
+   - 49.9% non-CI usage (vs pip's 25.8%)
    - MCP is one driver, but not the only one
 
 3. **Interactive usage patterns**
@@ -161,10 +161,10 @@ Top UV subcommands:
 ## Conclusion
 
 MCP usage for compliance-trestle is **detectable but small**:
-- **Confirmed:** 317 downloads (0.191%)
-- **Estimated:** 317 - 1,585 downloads (0.191% - 0.96%)
+- **Confirmed:** 305 downloads (0.184%)
+- **Estimated:** 305 - 1,525 downloads (0.184% - 0.92%)
 
-The broader story is **UV's growth** (15.4% market share), with MCP being one of several drivers for modern Python tooling adoption.
+The broader story is **UV's growth** (18.1% market share), with MCP being one of several drivers for modern Python tooling adoption.
 
 ---
 
