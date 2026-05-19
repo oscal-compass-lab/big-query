@@ -1,28 +1,28 @@
 PyPI Analytics: compliance-trestle
 Period: Last 30 days
 Data Date: 2026-05-19
-Generated: 2026-05-19 18:29:04 UTC
+Generated: 2026-05-19 19:11:06 UTC
 ================================================================================
 
-TOTAL DOWNLOADS: 85,440
+TOTAL DOWNLOADS: 85,961
 COUNTRIES REACHED: 51
 CI/CD INSTALLS: 69.9%
 UV ADOPTION: 25.9%
 MCP (uvx): 96
 
 COUNTRIES (51 total):
-  US       77,891 ( 91.2%)
+  US       78,353 ( 91.1%)
   SG        3,016 (  3.5%)
-  RU          885 (  1.0%)
+  RU          888 (  1.0%)
   CN          788 (  0.9%)
-  JP          614 (  0.7%)
+  JP          618 (  0.7%)
   GB          457 (  0.5%)
-  DE          266 (  0.3%)
-  AE          202 (  0.2%)
+  DE          270 (  0.3%)
+  AE          248 (  0.3%)
   TW          200 (  0.2%)
   ES          195 (  0.2%)
   CA          192 (  0.2%)
-  CH          103 (  0.1%)
+  CH          105 (  0.1%)
   IN           86 (  0.1%)
   AU           82 (  0.1%)
   IE           72 (  0.1%)
@@ -33,12 +33,12 @@ COUNTRIES (51 total):
   SE           34 (  0.0%)
 
 OS/DISTRO:
-  Linux      Ubuntu                             61,801
-  Linux      Debian GNU/Linux                    9,627
-  Linux      Red Hat Enterprise Linux            3,330
-  Linux      Fedora Linux                        1,652
-  Darwin     macOS                               1,021
-  Linux      Amazon Linux                          641
+  Linux      Ubuntu                             62,231
+  Linux      Debian GNU/Linux                    9,647
+  Linux      Red Hat Enterprise Linux            3,337
+  Linux      Fedora Linux                        1,667
+  Darwin     macOS                               1,025
+  Linux      Amazon Linux                          666
   Linux      Alpine Linux                          215
   Linux      Docker Hardened Images (Debian)         60
   Linux      Rocky Linux                            20
@@ -50,20 +50,20 @@ OS/DISTRO:
   Linux      Linux Mint                              2
 
 INSTALLERS:
-  pip                 57,610 ( 67.4%) - CI: 45,565, Non-CI: 12,045
-  uv                  22,100 ( 25.9%) - CI: 14,163, Non-CI: 7,937
+  pip                 57,957 ( 67.4%) - CI: 45,803, Non-CI: 12,154
+  uv                  22,263 ( 25.9%) - CI: 14,323, Non-CI: 7,940
   bandersnatch         2,932 (  3.4%) - CI: 0, Non-CI: 2,932
   (unknown)            1,170 (  1.4%) - CI: 0, Non-CI: 1,170
-  poetry                 978 (  1.1%) - CI: 0, Non-CI: 978
-  Browser                341 (  0.4%) - CI: 0, Non-CI: 341
+  poetry                 988 (  1.1%) - CI: 0, Non-CI: 988
+  Browser                342 (  0.4%) - CI: 0, Non-CI: 342
   requests               270 (  0.3%) - CI: 0, Non-CI: 270
   Nexus                   39 (  0.0%) - CI: 0, Non-CI: 39
 
 UV SUBCOMMANDS:
-  sync                     11,827
-  pip install               6,330
-  run                       1,426
-  tool install              1,240
+  sync                     11,871
+  pip install               6,435
+  run                       1,428
+  tool install              1,252
   (none)                    1,064
   uvx                          96
   lock                         80
@@ -72,19 +72,19 @@ UV SUBCOMMANDS:
   tool upgrade                  2
 
 PYTHON VERSIONS:
-  3.12           45,053 ( 52.7%)
-  3.11           19,567 ( 22.9%)
-  3.14            6,224 (  7.3%)
-  3.10            6,189 (  7.2%)
+  3.12           45,299 ( 52.7%)
+  3.11           19,702 ( 22.9%)
+  3.10            6,303 (  7.3%)
+  3.14            6,234 (  7.3%)
   3.13            1,739 (  2.0%)
-  3.9               888 (  1.0%)
+  3.9               893 (  1.0%)
   3.8                18 (  0.0%)
   3.7                17 (  0.0%)
   2.7                14 (  0.0%)
   3.15                2 (  0.0%)
 
 VERIFICATION:
-  Total from installers: 85,440
-  Total downloads:       85,440
+  Total from installers: 85,961
+  Total downloads:       85,961
   Coverage:              100.00%
   ✓ 100% coverage achieved
