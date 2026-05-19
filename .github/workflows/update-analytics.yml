@@ -1,383 +1,197 @@
-name: Update BigQuery Analytics
+name: Update PyPI Analytics
 
 on:
-  # Run weekly on Mondays at 2 AM ET (6 AM UTC during daylight saving time)
   schedule:
-    - cron: '0 6 * * 1'
-  
-  # Allow manual trigger from GitHub UI
+    # Runs weekly on Mondays at 8:00 AM UTC (4:00 AM ET)
+    # Note: GitHub may delay scheduled runs by up to 1 hour
+    - cron: '0 8 * * 1'
   workflow_dispatch:
     inputs:
-      days_30:
-        description: 'Generate 30-day reports'
+      package:
+        description: 'PyPI package name (optional, overrides config)'
         required: false
-        default: 'true'
-        type: boolean
-      days_90:
-        description: 'Generate 90-day reports'
+        type: string
+      days:
+        description: 'Days to analyze (optional, overrides config)'
         required: false
-        default: 'true'
-        type: boolean
-
-# Prevent concurrent runs
-concurrency:
-  group: analytics-update
-  cancel-in-progress: false
+        type: number
+        default: 30
 
 env:
-  PACKAGE: compliance-trestle
-  PYTHON_VERSION: '3.12'
+  # Default configuration - can be overridden by workflow_dispatch inputs
+  DEFAULT_PACKAGE: 'compliance-trestle'
+  DEFAULT_DAYS_30: 30
+  DEFAULT_DAYS_90: 90
 
 jobs:
-  update-analytics:
+  generate-analytics:
     runs-on: ubuntu-latest
-    
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-    
     permissions:
-      contents: write  # Required to push changes
+      contents: write
+      id-token: write
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0  # Full history for proper git operations
+        uses: actions/checkout@v4
+      
+      - name: Validate secrets
+        run: |
+          if [ -z "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" ]; then
+            echo "❌ ERROR: GCP_SERVICE_ACCOUNT_KEY secret is not set"
+            echo "Please configure GitHub secrets as described in SETUP.md"
+            exit 1
+          fi
+          if [ -z "${{ secrets.GCP_PROJECT_ID }}" ]; then
+            echo "❌ ERROR: GCP_PROJECT_ID secret is not set"
+            echo "Please configure GitHub secrets as described in SETUP.md"
+            exit 1
+          fi
+          echo "✅ All required secrets are configured"
       
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: '3.13'
+          cache: 'pip'
       
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install \
-            google-cloud-bigquery \
-            google-auth \
-            pandas \
-            db-dtypes \
-            tabulate \
-            rich \
-            plotly \
-            kaleido
+          pip install --upgrade pip
+          pip install -r requirements.txt
       
-      - name: Create credentials file
-        run: |
-          echo '${{ secrets.GCP_CREDENTIALS }}' > credentials.json
-          chmod 600 credentials.json
+      - name: Restore BigQuery cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: bigquery-cache-${{ github.event.inputs.package || env.DEFAULT_PACKAGE }}-${{ github.event.inputs.days || env.DEFAULT_DAYS_30 }}-${{ github.run_id }}
+          restore-keys: |
+            bigquery-cache-${{ github.event.inputs.package || env.DEFAULT_PACKAGE }}-${{ github.event.inputs.days || env.DEFAULT_DAYS_30 }}-
+            bigquery-cache-${{ github.event.inputs.package || env.DEFAULT_PACKAGE }}-
       
-      - name: Verify credentials
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+      
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+      
+      - name: Determine package and days
+        id: config
         run: |
-          if [ ! -f credentials.json ]; then
-            echo "ERROR: credentials.json not created"
+          if [ -n "${{ github.event.inputs.package }}" ]; then
+            echo "package=${{ github.event.inputs.package }}" >> $GITHUB_OUTPUT
+          else
+            echo "package=${{ env.DEFAULT_PACKAGE }}" >> $GITHUB_OUTPUT
+          fi
+          
+          # Always generate both 30-day and 90-day reports
+          echo "days_30=${{ env.DEFAULT_DAYS_30 }}" >> $GITHUB_OUTPUT
+          echo "days_90=${{ env.DEFAULT_DAYS_90 }}" >> $GITHUB_OUTPUT
+      
+      - name: Generate 30-day analytics
+        run: |
+          python generate_analytics.py \
+            --package "${{ steps.config.outputs.package }}" \
+            --days ${{ steps.config.outputs.days_30 }} \
+            --project ${{ secrets.GCP_PROJECT_ID }} \
+            --output-dir reports.wip
+      
+      - name: Generate 90-day analytics
+        run: |
+          python generate_analytics.py \
+            --package "${{ steps.config.outputs.package }}" \
+            --days ${{ steps.config.outputs.days_90 }} \
+            --project ${{ secrets.GCP_PROJECT_ID }} \
+            --output-dir reports.wip
+      
+      - name: Atomically replace reports and README
+        run: |
+          echo "========================================================================"
+          echo "Atomically replacing reports/ and README.md with new content..."
+          echo "========================================================================"
+          
+          # Backup old files
+          if [ -d reports ]; then
+            rm -rf reports.backup
+            mv reports reports.backup
+            echo "✓ Backed up old reports/ to reports.backup/"
+          fi
+          
+          if [ -f README.md ]; then
+            cp README.md README.backup
+            echo "✓ Backed up old README.md to README.backup"
+          fi
+          
+          # Move new files into place atomically
+          if [ -d reports.wip ]; then
+            mv reports.wip reports
+            echo "✓ Moved reports.wip/ to reports/"
+          else
+            echo "❌ ERROR: reports.wip/ not found!"
             exit 1
           fi
-          if [ ! -s credentials.json ]; then
-            echo "ERROR: credentials.json is empty"
-            exit 1
-          fi
-          echo "✓ Credentials file created successfully"
-      
-      - name: Set up reports directory
-        run: |
-          mkdir -p reports
-          echo "✓ Reports directory ready"
-      
-      - name: Generate 30-day reports
-        if: github.event_name == 'schedule' || github.event.inputs.days_30 == 'true'
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
-        run: |
-          echo "=========================================="
-          echo "Generating 30-day reports..."
-          echo "=========================================="
           
-          REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-30.txt"
-          
-          if [ -f "$REPORT_FILE" ]; then
-            echo "⚠ Report already exists: $REPORT_FILE"
-            echo "Skipping query to avoid quota usage (same day run)"
+          if [ -f README.wip ]; then
+            mv README.wip README.md
+            echo "✓ Moved README.wip to README.md"
           else
-            python python/query.py all \
-              --package ${{ env.PACKAGE }} \
-              --days 30 \
-              --project ${{ secrets.GCP_PROJECT_ID }} \
-              --credentials credentials.json > "$REPORT_FILE"
-            
-            echo "✓ 30-day report saved to: $REPORT_FILE"
+            echo "⚠ WARNING: README.wip not found, keeping existing README.md"
           fi
+          
+          # Clean up backups after successful swap
+          if [ -d reports.backup ]; then
+            rm -rf reports.backup
+            echo "✓ Removed reports.backup/"
+          fi
+          
+          if [ -f README.backup ]; then
+            rm -f README.backup
+            echo "✓ Removed README.backup"
+          fi
+          
+          echo "========================================================================"
+          echo "✓ Atomic replacement complete!"
+          echo "========================================================================"
       
-      - name: Generate 90-day reports
-        if: github.event_name == 'schedule' || github.event.inputs.days_90 == 'true'
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
-        run: |
-          echo "=========================================="
-          echo "Generating 90-day reports..."
-          echo "=========================================="
-          
-          REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-90.txt"
-          
-          if [ -f "$REPORT_FILE" ]; then
-            echo "⚠ Report already exists: $REPORT_FILE"
-            echo "Skipping query to avoid quota usage (same day run)"
-          else
-            python python/query.py all \
-              --package ${{ env.PACKAGE }} \
-              --days 90 \
-              --project ${{ secrets.GCP_PROJECT_ID }} \
-              --credentials credentials.json > "$REPORT_FILE"
-            
-            echo "✓ 90-day report saved to: $REPORT_FILE"
-          fi
-      
-      - name: Generate world maps
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
-        run: |
-          echo "=========================================="
-          echo "Generating world maps..."
-          echo "=========================================="
-          
-          if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.days_30 }}" == "true" ]; then
-            echo "Generating 30-day map..."
-            python python/map_from_reports.py --days 30
-          fi
-          
-          if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.days_90 }}" == "true" ]; then
-            echo "Generating 90-day map..."
-            python python/map_from_reports.py --days 90
-          fi
-          
-          echo "✓ Maps generated"
-      
-      - name: Generate MCP analysis
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
-        run: |
-          echo "=========================================="
-          echo "Generating MCP inference analysis..."
-          echo "=========================================="
-          
-          if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.days_30 }}" == "true" ]; then
-            REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-30.txt"
-            if [ -f "$REPORT_FILE" ]; then
-              echo "Using existing 30-day report data, regenerating charts..."
-              python python/mcp_inference_analysis.py \
-                --package ${{ env.PACKAGE }} \
-                --days 30 \
-                --project ${{ secrets.GCP_PROJECT_ID }} \
-                --credentials credentials.json \
-                --output-dir reports
-            else
-              echo "Generating 30-day MCP analysis..."
-              python python/mcp_inference_analysis.py \
-                --package ${{ env.PACKAGE }} \
-                --days 30 \
-                --project ${{ secrets.GCP_PROJECT_ID }} \
-                --credentials credentials.json \
-                --output-dir reports
-            fi
-          fi
-          
-          if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.days_90 }}" == "true" ]; then
-            REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-90.txt"
-            if [ -f "$REPORT_FILE" ]; then
-              echo "Using existing 90-day report data, regenerating charts..."
-              python python/mcp_inference_analysis.py \
-                --package ${{ env.PACKAGE }} \
-                --days 90 \
-                --project ${{ secrets.GCP_PROJECT_ID }} \
-                --credentials credentials.json \
-                --output-dir reports
-            else
-              echo "Generating 90-day MCP analysis..."
-              python python/mcp_inference_analysis.py \
-                --package ${{ env.PACKAGE }} \
-                --days 90 \
-                --project ${{ secrets.GCP_PROJECT_ID }} \
-                --credentials credentials.json \
-                --output-dir reports
-            fi
-          fi
-          
-          echo "✓ MCP analysis complete"
-      
-      - name: Generate deployment visualizations
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: credentials.json
-        run: |
-          echo "=========================================="
-          echo "Generating deployment visualizations..."
-          echo "=========================================="
-          
-          if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.days_30 }}" == "true" ]; then
-            REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-30.txt"
-            if [ -f "$REPORT_FILE" ]; then
-              echo "Using existing 30-day report data, regenerating charts..."
-              python python/visualize_deployment.py \
-                --package ${{ env.PACKAGE }} \
-                --days 30 \
-                --project ${{ secrets.GCP_PROJECT_ID }} \
-                --credentials credentials.json \
-                --output-dir reports
-            else
-              echo "Generating 30-day deployment charts..."
-              python python/visualize_deployment.py \
-                --package ${{ env.PACKAGE }} \
-                --days 30 \
-                --project ${{ secrets.GCP_PROJECT_ID }} \
-                --credentials credentials.json \
-                --output-dir reports
-            fi
-          fi
-          
-          if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event.inputs.days_90 }}" == "true" ]; then
-            REPORT_FILE="reports/$(date +%Y.%m.%d).trestle.pypi.last-90.txt"
-            if [ -f "$REPORT_FILE" ]; then
-              echo "Using existing 90-day report data, regenerating charts..."
-              python python/visualize_deployment.py \
-                --package ${{ env.PACKAGE }} \
-                --days 90 \
-                --project ${{ secrets.GCP_PROJECT_ID }} \
-                --credentials credentials.json \
-                --output-dir reports
-            else
-              echo "Generating 90-day deployment charts..."
-              python python/visualize_deployment.py \
-                --package ${{ env.PACKAGE }} \
-                --days 90 \
-                --project ${{ secrets.GCP_PROJECT_ID }} \
-                --credentials credentials.json \
-                --output-dir reports
-            fi
-          fi
-          
-          echo "✓ Deployment visualizations complete"
-      
-      - name: Update README with latest metrics
-        run: |
-          echo "=========================================="
-          echo "Updating README.md with latest metrics..."
-          echo "=========================================="
-          
-          # Find the most recent report files
-          REPORT_30=$(ls -t reports/*.last-30.txt 2>/dev/null | head -1)
-          REPORT_90=$(ls -t reports/*.last-90.txt 2>/dev/null | head -1)
-          
-          if [ -n "$REPORT_30" ] && [ -n "$REPORT_90" ]; then
-            python python/update_readme.py \
-              --report-30 "$REPORT_30" \
-              --report-90 "$REPORT_90" \
-              --readme README.md
-            echo "✓ README.md updated"
-          else
-            echo "⚠ Report files not found, skipping README update"
-          fi
-      
-      - name: Clean up credentials
-        if: always()
-        run: |
-          rm -f credentials.json
-          echo "✓ Credentials cleaned up"
-      
-      - name: Check for changes
-        id: check_changes
-        run: |
-          git add reports/ README.md
-          if git diff --staged --quiet; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "No changes to commit"
-          else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "Changes detected in reports/ and/or README.md"
-          fi
-      
-      - name: Commit and push changes to main
-        if: steps.check_changes.outputs.has_changes == 'true'
+      - name: Commit and push reports
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
-          git commit -m "chore: update analytics reports - $TIMESTAMP" \
-                     -m "Automated update of BigQuery analytics data" \
-                     -m "- Updated reports and visualizations" \
-                     -m "- Updated README.md with latest metrics" \
-                     -m "- Generated by GitHub Actions workflow"
+          # Pull latest changes first to avoid conflicts
+          git pull origin main
           
-          git push
-          
-          echo "✓ Changes committed and pushed to main"
-      
-      - name: Create/update monthly backup branch
-        if: steps.check_changes.outputs.has_changes == 'true'
-        run: |
-          # Get current month (01-12)
-          MONTH=$(date +%m)
-          MONTH_BRANCH="reports/$MONTH"
-          MONTH_NAME=$(date +%B)
-          
-          echo "=========================================="
-          echo "Creating/updating monthly backup: $MONTH_BRANCH ($MONTH_NAME)"
-          echo "=========================================="
-          
-          # Fetch all branches
-          git fetch origin
-          
-          # Check if branch exists remotely
-          if git ls-remote --heads origin "$MONTH_BRANCH" | grep -q "$MONTH_BRANCH"; then
-            echo "Branch $MONTH_BRANCH exists, checking it out..."
-            git checkout "$MONTH_BRANCH"
-            git pull origin "$MONTH_BRANCH" || true
-          else
-            echo "Branch $MONTH_BRANCH does not exist, creating it..."
-            git checkout -b "$MONTH_BRANCH"
-          fi
-          
-          # Copy reports from main
-          git checkout main -- reports/
-          git checkout main -- README.md
-          
-          # Commit (force overwrite for the month)
-          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+          # Add all generated reports and README
           git add reports/ README.md
-          git commit -m "chore: $MONTH_NAME backup - $TIMESTAMP" \
-                     -m "Monthly snapshot of analytics reports for $MONTH_NAME" \
-                     -m "- This branch is overwritten each year" \
-                     -m "- Generated by GitHub Actions workflow" || true
           
-          # Force push to overwrite previous year's data
-          git push -f origin "$MONTH_BRANCH"
-          echo "✓ Monthly backup branch $MONTH_BRANCH updated"
-          
-          # Return to main branch
-          git checkout main
-          
-          echo "=========================================="
-          echo "✓ Monthly backup complete: $MONTH_BRANCH"
-          echo "=========================================="
-      
-      - name: Summary
-        if: always()
-        run: |
-          echo "=========================================="
-          echo "Analytics Update Summary"
-          echo "=========================================="
-          echo "Package: ${{ env.PACKAGE }}"
-          echo "Timestamp: $(date -u +"%Y-%m-%d %H:%M UTC")"
-          echo "Workflow: ${{ github.workflow }}"
-          echo "Run ID: ${{ github.run_id }}"
-          echo "=========================================="
-          
-          if [ -d reports ]; then
-            echo "Generated files:"
-            ls -lh reports/ | tail -n +2 | awk '{print "  " $9 " (" $5 ")"}'
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update PyPI analytics for ${{ steps.config.outputs.package }} - $(date -u +%Y-%m-%d)"
+            
+            # Push with retry logic
+            max_retries=3
+            retry_count=0
+            until git push origin main || [ $retry_count -eq $max_retries ]; do
+              retry_count=$((retry_count + 1))
+              echo "Push failed, retrying ($retry_count/$max_retries)..."
+              git pull --rebase origin main
+              sleep 2
+            done
+            
+            if [ $retry_count -eq $max_retries ]; then
+              echo "Failed to push after $max_retries attempts"
+              exit 1
+            fi
           fi
-          
-          echo "=========================================="
-          echo "✓ Analytics update complete"
-          echo "=========================================="
+      
+      - name: Upload reports as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pypi-analytics-reports
+          path: reports/
+          retention-days: 30
 
 # Made with Bob
