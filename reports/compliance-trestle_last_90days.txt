@@ -1,7 +1,7 @@
 PyPI Analytics: compliance-trestle
 Period: Last 90 days
 Data Date: 2026-05-20
-Generated: 2026-05-20 12:51:46 UTC
+Generated: 2026-05-20 13:04:05 UTC
 ================================================================================
 
 TOTAL DOWNLOADS: 190,164
