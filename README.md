@@ -4,7 +4,7 @@
 
 This repository contains automated BigQuery analytics and reports for PyPI packages.
 
-**Report Date:** 2026-05-19
+**Report Date:** 2026-05-20
 
 ---
 
@@ -20,11 +20,11 @@ This repository contains automated BigQuery analytics and reports for PyPI packa
 <!-- METRICS_TABLE_START -->
 | Metric | 30 Days | 90 Days |
 |--------|---------|---------|
-| **Total Downloads** | 85,961 | 187,679 |
-| **Countries Reached** | 51 | 66 |
-| **CI/CD Installs** | 69.9% | 63.7% |
-| **UV Adoption** | 25.9% | 18.0% |
-| **Confirmed MCP Usage** | 96 | 315 |
+| **Total Downloads** | 86,904 | 190,164 |
+| **Countries Reached** | 52 | 67 |
+| **CI/CD Installs** | 69.4% | 63.6% |
+| **UV Adoption** | 25.9% | 18.1% |
+| **Confirmed MCP Usage** | 100 | 319 |
 <!-- METRICS_TABLE_END -->
 
 ---
@@ -63,16 +63,16 @@ This repository contains automated BigQuery analytics and reports for PyPI packa
 <!-- COUNTRIES_30_START -->
 | Country | Downloads | % |
 |---------|-----------|---|
-| <img src="https://flagcdn.com/16x12/us.png" alt="US" width="16" height="12"> United States | 78,353 | 91.1% |
-| <img src="https://flagcdn.com/16x12/sg.png" alt="SG" width="16" height="12"> Singapore | 3,016 | 3.5% |
-| <img src="https://flagcdn.com/16x12/ru.png" alt="RU" width="16" height="12"> Russian Federation | 888 | 1.0% |
-| <img src="https://flagcdn.com/16x12/cn.png" alt="CN" width="16" height="12"> China | 788 | 0.9% |
-| <img src="https://flagcdn.com/16x12/jp.png" alt="JP" width="16" height="12"> Japan | 618 | 0.7% |
-| <img src="https://flagcdn.com/16x12/gb.png" alt="GB" width="16" height="12"> United Kingdom | 457 | 0.5% |
-| <img src="https://flagcdn.com/16x12/de.png" alt="DE" width="16" height="12"> Germany | 270 | 0.3% |
-| <img src="https://flagcdn.com/16x12/ae.png" alt="AE" width="16" height="12"> United Arab Emirates | 248 | 0.3% |
+| <img src="https://flagcdn.com/16x12/us.png" alt="US" width="16" height="12"> United States | 78,426 | 90.2% |
+| <img src="https://flagcdn.com/16x12/sg.png" alt="SG" width="16" height="12"> Singapore | 3,092 | 3.6% |
+| <img src="https://flagcdn.com/16x12/ru.png" alt="RU" width="16" height="12"> Russian Federation | 924 | 1.1% |
+| <img src="https://flagcdn.com/16x12/cn.png" alt="CN" width="16" height="12"> China | 797 | 0.9% |
+| <img src="https://flagcdn.com/16x12/ae.png" alt="AE" width="16" height="12"> United Arab Emirates | 701 | 0.8% |
+| <img src="https://flagcdn.com/16x12/jp.png" alt="JP" width="16" height="12"> Japan | 636 | 0.7% |
+| <img src="https://flagcdn.com/16x12/gb.png" alt="GB" width="16" height="12"> United Kingdom | 436 | 0.5% |
+| <img src="https://flagcdn.com/16x12/de.png" alt="DE" width="16" height="12"> Germany | 289 | 0.3% |
+| <img src="https://flagcdn.com/16x12/hk.png" alt="HK" width="16" height="12"> Hong Kong | 244 | 0.3% |
 | <img src="https://flagcdn.com/16x12/tw.png" alt="TW" width="16" height="12"> Taiwan, Province of China | 200 | 0.2% |
-| <img src="https://flagcdn.com/16x12/es.png" alt="ES" width="16" height="12"> Spain | 195 | 0.2% |
 <!-- COUNTRIES_30_END -->
 
 </td>
@@ -82,16 +82,16 @@ This repository contains automated BigQuery analytics and reports for PyPI packa
 <!-- COUNTRIES_90_START -->
 | Country | Downloads | % |
 |---------|-----------|---|
-| <img src="https://flagcdn.com/16x12/us.png" alt="US" width="16" height="12"> United States | 171,859 | 91.6% |
-| <img src="https://flagcdn.com/16x12/sg.png" alt="SG" width="16" height="12"> Singapore | 5,668 | 3.0% |
-| <img src="https://flagcdn.com/16x12/cn.png" alt="CN" width="16" height="12"> China | 2,252 | 1.2% |
-| <img src="https://flagcdn.com/16x12/gb.png" alt="GB" width="16" height="12"> United Kingdom | 1,383 | 0.7% |
-| <img src="https://flagcdn.com/16x12/ru.png" alt="RU" width="16" height="12"> Russian Federation | 1,260 | 0.7% |
-| <img src="https://flagcdn.com/16x12/jp.png" alt="JP" width="16" height="12"> Japan | 703 | 0.4% |
-| <img src="https://flagcdn.com/16x12/kr.png" alt="KR" width="16" height="12"> Korea, Republic of | 595 | 0.3% |
-| <img src="https://flagcdn.com/16x12/de.png" alt="DE" width="16" height="12"> Germany | 593 | 0.3% |
-| <img src="https://flagcdn.com/16x12/in.png" alt="IN" width="16" height="12"> India | 380 | 0.2% |
-| <img src="https://flagcdn.com/16x12/fr.png" alt="FR" width="16" height="12"> France | 368 | 0.2% |
+| <img src="https://flagcdn.com/16x12/us.png" alt="US" width="16" height="12"> United States | 173,449 | 91.2% |
+| <img src="https://flagcdn.com/16x12/sg.png" alt="SG" width="16" height="12"> Singapore | 5,748 | 3.0% |
+| <img src="https://flagcdn.com/16x12/cn.png" alt="CN" width="16" height="12"> China | 2,262 | 1.2% |
+| <img src="https://flagcdn.com/16x12/gb.png" alt="GB" width="16" height="12"> United Kingdom | 1,381 | 0.7% |
+| <img src="https://flagcdn.com/16x12/ru.png" alt="RU" width="16" height="12"> Russian Federation | 1,296 | 0.7% |
+| <img src="https://flagcdn.com/16x12/jp.png" alt="JP" width="16" height="12"> Japan | 721 | 0.4% |
+| <img src="https://flagcdn.com/16x12/ae.png" alt="AE" width="16" height="12"> United Arab Emirates | 708 | 0.4% |
+| <img src="https://flagcdn.com/16x12/de.png" alt="DE" width="16" height="12"> Germany | 607 | 0.3% |
+| <img src="https://flagcdn.com/16x12/kr.png" alt="KR" width="16" height="12"> Korea, Republic of | 596 | 0.3% |
+| <img src="https://flagcdn.com/16x12/hk.png" alt="HK" width="16" height="12"> Hong Kong | 528 | 0.3% |
 <!-- COUNTRIES_90_END -->
 
 </td>
@@ -100,8 +100,8 @@ This repository contains automated BigQuery analytics and reports for PyPI packa
 
 <!-- GEO_INSIGHTS_START -->
 **Key Insights:**
-- **<img src="https://flagcdn.com/16x12/us.png" alt="US" width="16" height="12"> United States dominance** (91.1% in 30d, 91.6% in 90d) consistent across periods
-- **51 countries (30d), 66 countries (90d)** demonstrates global reach
+- **<img src="https://flagcdn.com/16x12/us.png" alt="US" width="16" height="12"> United States dominance** (90.2% in 30d, 91.2% in 90d) consistent across periods
+- **52 countries (30d), 67 countries (90d)** demonstrates global reach
 <!-- GEO_INSIGHTS_END -->
 
 ---
@@ -141,7 +141,7 @@ Since MCP servers don't explicitly identify themselves in PyPI logs, we use **pr
 ![Installer Share 30d](reports/compliance-trestle_mcp_installer_30days.png)
 
 <!-- UV_INSTALLER_30_START -->
-UV: 25.9% of downloads (22,263)
+UV: 25.9% of downloads (22,502)
 <!-- UV_INSTALLER_30_END -->
 
 </td>
@@ -152,7 +152,7 @@ UV: 25.9% of downloads (22,263)
 ![Installer Share 90d](reports/compliance-trestle_mcp_installer_90days.png)
 
 <!-- UV_INSTALLER_90_START -->
-UV: 18.0% of downloads (33,858)
+UV: 18.1% of downloads (34,434)
 <!-- UV_INSTALLER_90_END -->
 
 </td>
@@ -169,7 +169,7 @@ UV: 18.0% of downloads (33,858)
 ![UV Subcommands 30d](reports/compliance-trestle_mcp_subcommands_30days.png)
 
 <!-- UVX_30_START -->
-**96 uvx downloads** = HIGH confidence MCP
+**100 uvx downloads** = HIGH confidence MCP
 <!-- UVX_30_END -->
 
 </td>
@@ -180,7 +180,7 @@ UV: 18.0% of downloads (33,858)
 ![UV Subcommands 90d](reports/compliance-trestle_mcp_subcommands_90days.png)
 
 <!-- UVX_90_START -->
-**315 uvx downloads** = HIGH confidence MCP
+**319 uvx downloads** = HIGH confidence MCP
 <!-- UVX_90_END -->
 
 </td>
@@ -210,7 +210,7 @@ UV: 18.0% of downloads (33,858)
 ![CI vs Non-CI 30d](reports/compliance-trestle_mcp_ci_30days.png)
 
 <!-- UV_NON_CI_30_START -->
-UV: 35.7% non-CI (7,940 downloads)
+UV: 34.2% non-CI (7,686 downloads)
 <!-- UV_NON_CI_30_END -->
 
 </td>
@@ -221,7 +221,7 @@ UV: 35.7% non-CI (7,940 downloads)
 ![CI vs Non-CI 90d](reports/compliance-trestle_mcp_ci_90days.png)
 
 <!-- UV_NON_CI_90_START -->
-UV: 46.3% non-CI (15,688 downloads)
+UV: 45.8% non-CI (15,761 downloads)
 <!-- UV_NON_CI_90_END -->
 
 </td>
@@ -238,7 +238,7 @@ UV: 46.3% non-CI (15,688 downloads)
 ![Daily Trend 30d](reports/compliance-trestle_mcp_daily_30days.png)
 
 <!-- DAILY_TREND_30_START -->
-96 uvx downloads over 30 days
+100 uvx downloads over 30 days
 <!-- DAILY_TREND_30_END -->
 
 </td>
@@ -249,7 +249,7 @@ UV: 46.3% non-CI (15,688 downloads)
 ![Daily Trend 90d](reports/compliance-trestle_mcp_daily_90days.png)
 
 <!-- DAILY_TREND_90_START -->
-315 uvx downloads over 90 days
+319 uvx downloads over 90 days
 <!-- DAILY_TREND_90_END -->
 
 </td>
@@ -262,9 +262,9 @@ UV: 46.3% non-CI (15,688 downloads)
 
 **30-Day Analysis:**
 <!-- MCP_FINDINGS_30_START -->
-1. **Confirmed MCP Usage:** 96 downloads using `uvx` subcommand
+1. **Confirmed MCP Usage:** 100 downloads using `uvx` subcommand
 2. **UV Adoption:** 25.9% of downloads
-3. **Interactive Usage:** 35.7% of UV downloads are non-CI
+3. **Interactive Usage:** 34.2% of UV downloads are non-CI
 
 MCP usage is detectable but small. The broader story is UV's growth as a modern Python installer.
 <!-- MCP_FINDINGS_30_END -->
@@ -274,9 +274,9 @@ MCP usage is detectable but small. The broader story is UV's growth as a modern 
 
 **90-Day Analysis:**
 <!-- MCP_FINDINGS_90_START -->
-1. **Confirmed MCP Usage:** 315 downloads using `uvx` subcommand
-2. **UV Adoption:** 18.0% of downloads
-3. **Interactive Usage:** 46.3% of UV downloads are non-CI
+1. **Confirmed MCP Usage:** 319 downloads using `uvx` subcommand
+2. **UV Adoption:** 18.1% of downloads
+3. **Interactive Usage:** 45.8% of UV downloads are non-CI
 
 MCP usage is detectable but small. The broader story is UV's growth as a modern Python installer.
 <!-- MCP_FINDINGS_90_END -->
