@@ -462,7 +462,7 @@ def generate_quarterly_version_trends(client: bigquery.Client, package: str, out
                 pattern=dict(
                     shape=patterns,
                     solidity=0.2,  # Increased solidity for more noticeable lines
-                    fgcolor='rgba(255,255,255,0.6)'  # More opaque white lines
+                    fgcolor='rgba(255,255,255,0.75)'  # More opaque white lines (15% more visible)
                 )
             )
         ))
