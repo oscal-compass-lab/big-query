@@ -467,21 +467,20 @@ def generate_quarterly_version_trends(client: bigquery.Client, package: str, out
             )
         ))
     
-    # Add a dummy trace for the legend to show pattern meaning
-    fig.add_trace(go.Bar(
-        name='Projected (current quarter)',
-        x=[None],
-        y=[None],
-        marker=dict(
-            color='gray',
-            pattern=dict(
-                shape='x',
-                solidity=0.2,
-                fgcolor='rgba(255,255,255,0.6)'
-            )
-        ),
-        showlegend=True
-    ))
+    # Add text annotation on top of current quarter bar
+    current_quarter_index = quarters.index(current_quarter_label) if current_quarter_label in quarters else -1
+    if current_quarter_index >= 0:
+        # Calculate the total height of the stacked bar for the current quarter
+        total_height = sum(pivot_data[version_label][current_quarter_index] for version_label in pivot_data.keys())
+        
+        fig.add_annotation(
+            x=current_quarter_label,
+            y=total_height,
+            text="projected",
+            showarrow=False,
+            yshift=10,
+            font=dict(size=12, color='black')
+        )
     
     fig.update_layout(
         title="Downloads Per Month (by quarter) Last 3 Years<br><sub>Current quarter shows projected monthly average (diagonal pattern)</sub>",
