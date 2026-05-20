@@ -256,8 +256,8 @@ def generate_text_report(df: pd.DataFrame, package: str, days: int, output_dir: 
 
 
 def generate_top_countries_tables(df: pd.DataFrame, package: str, days: int, output_dir: Path):
-    """Generate top 10 countries markdown tables with flags and full names (dynamic lookup)."""
-    print("Generating top countries tables...")
+    """Generate complete countries markdown tables with flags and full names (dynamic lookup)."""
+    print("Generating countries tables...")
     
     def get_country_flag_img(code: str) -> str:
         """Get flag image HTML for country code using flagcdn.com."""
@@ -273,8 +273,8 @@ def generate_top_countries_tables(df: pd.DataFrame, package: str, days: int, out
         except (AttributeError, LookupError):
             return code  # Fallback to code if lookup fails
     
-    # Get top 10 countries
-    countries = df.groupby('country_code')['downloads'].sum().sort_values(ascending=False).head(10)
+    # Get all countries sorted by downloads
+    countries = df.groupby('country_code')['downloads'].sum().sort_values(ascending=False)
     total = df['downloads'].sum()
     
     # Create markdown table with flag images and full names (dynamically generated)
@@ -290,7 +290,7 @@ def generate_top_countries_tables(df: pd.DataFrame, package: str, days: int, out
     with open(md_file, 'w') as f:
         f.write('\n'.join(table_lines))
     
-    print(f"✓ Top countries table: {md_file}\n")
+    print(f"✓ Countries table ({len(countries)} countries): {md_file}\n")
     return table_lines
 
 def generate_quarterly_version_trends(client: bigquery.Client, package: str, output_dir: Path):

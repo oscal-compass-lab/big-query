@@ -59,7 +59,7 @@ This repository contains automated BigQuery analytics and reports for PyPI packa
 <tr>
 <td width="50%" valign="top">
 
-**Top 10 Countries:**
+**Countries:**
 <!-- COUNTRIES_30_START -->
 PLACEHOLDER_COUNTRIES_TABLE
 <!-- COUNTRIES_30_END -->
@@ -67,7 +67,7 @@ PLACEHOLDER_COUNTRIES_TABLE
 </td>
 <td width="50%" valign="top">
 
-**Top 10 Countries:**
+**Countries:**
 <!-- COUNTRIES_90_START -->
 PLACEHOLDER_COUNTRIES_TABLE
 <!-- COUNTRIES_90_END -->
