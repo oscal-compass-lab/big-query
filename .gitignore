@@ -25,9 +25,7 @@ venv/
 env/
 ENV/
 
-# Cache directory
-.cache/
-*.parquet
+# Cache directory - tracked in git for sharing test data
 
 # Work-in-progress files
 README.wip
