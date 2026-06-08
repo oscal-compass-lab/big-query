@@ -1,73 +1,73 @@
 PyPI Analytics: compliance-trestle
 Period: Last 90 days
-Data Date: 2026-06-01
-Generated: 2026-06-01 13:38:37 UTC
+Data Date: 2026-06-08
+Generated: 2026-06-08 12:30:11 UTC
 ================================================================================
 
-TOTAL DOWNLOADS: 210,993
-COUNTRIES REACHED: 69
-CI/CD INSTALLS: 66.5%
-UV ADOPTION: 18.9%
-MCP (uvx): 379
+TOTAL DOWNLOADS: 224,300
+COUNTRIES REACHED: 68
+CI/CD INSTALLS: 68.5%
+UV ADOPTION: 18.3%
+MCP (uvx): 380
 
-COUNTRIES (69 total):
-  US      191,730 ( 90.9%)
-  SG        6,248 (  3.0%)
-  CN        2,366 (  1.1%)
-  RU        1,885 (  0.9%)
-  GB        1,617 (  0.8%)
-  AE          960 (  0.5%)
-  JP          852 (  0.4%)
-  DE          678 (  0.3%)
-  KR          610 (  0.3%)
-  HK          594 (  0.3%)
-  ES          472 (  0.2%)
-  FR          428 (  0.2%)
-  CA          362 (  0.2%)
-  IN          341 (  0.2%)
-  AU          280 (  0.1%)
-  SE          257 (  0.1%)
-  TW          219 (  0.1%)
-  IE          184 (  0.1%)
+COUNTRIES (68 total):
+  US      205,318 ( 91.5%)
+  SG        6,301 (  2.8%)
+  CN        1,995 (  0.9%)
+  RU        1,805 (  0.8%)
+  GB        1,631 (  0.7%)
+  AE          955 (  0.4%)
+  JP          876 (  0.4%)
+  DE          687 (  0.3%)
+  KR          615 (  0.3%)
+  HK          512 (  0.2%)
+  ES          478 (  0.2%)
+  FR          457 (  0.2%)
+  CA          393 (  0.2%)
+  IN          339 (  0.2%)
+  SE          327 (  0.1%)
+  AU          277 (  0.1%)
+  TW          231 (  0.1%)
+  IE          186 (  0.1%)
   CH          178 (  0.1%)
-  NL          124 (  0.1%)
+  NL          128 (  0.1%)
 
 OS/DISTRO:
-  Linux      Ubuntu                            148,241
-  Linux      Debian GNU/Linux                   22,131
-  Linux      Red Hat Enterprise Linux            9,635
-  Linux      Fedora Linux                        6,556
-  Linux      Amazon Linux                        2,119
-  Darwin     macOS                               1,695
-  Linux      Alpine Linux                          611
+  Linux      Ubuntu                            158,631
+  Linux      Debian GNU/Linux                   22,427
+  Linux      Red Hat Enterprise Linux            9,593
+  Linux      Fedora Linux                        5,486
+  Linux      Amazon Linux                        2,285
+  Darwin     macOS                               1,794
+  Linux      Alpine Linux                          601
   Linux      Docker Hardened Images (Debian)        122
-  Linux      Rocky Linux                            68
-  Linux      Wolfi                                  60
-  Linux      AlmaLinux                              24
+  Linux      Wolfi                                  80
+  Linux      Rocky Linux                            63
   Linux      Kali GNU/Linux                         24
+  Linux      AlmaLinux                              23
+  Linux      CentOS Linux                           10
   Linux      Arch Linux                             10
-  Linux      Raspbian GNU/Linux                      7
   Linux      CentOS Stream                           7
 
 INSTALLERS:
-  pip                153,429 ( 72.7%) - CI: 117,747, Non-CI: 35,682
-  uv                  39,821 ( 18.9%) - CI: 22,565, Non-CI: 17,256
-  bandersnatch         8,334 (  3.9%) - CI: 0, Non-CI: 8,334
-  (unknown)            4,698 (  2.2%) - CI: 0, Non-CI: 4,698
-  poetry               2,777 (  1.3%) - CI: 0, Non-CI: 2,777
-  Browser              1,017 (  0.5%) - CI: 0, Non-CI: 1,017
-  requests               784 (  0.4%) - CI: 0, Non-CI: 784
-  Nexus                  133 (  0.1%) - CI: 0, Non-CI: 133
+  pip                162,139 ( 72.3%) - CI: 129,984, Non-CI: 32,155
+  uv                  41,013 ( 18.3%) - CI: 23,759, Non-CI: 17,254
+  bandersnatch         8,515 (  3.8%) - CI: 0, Non-CI: 8,515
+  (unknown)            7,813 (  3.5%) - CI: 0, Non-CI: 7,813
+  poetry               2,664 (  1.2%) - CI: 0, Non-CI: 2,664
+  Browser              1,155 (  0.5%) - CI: 0, Non-CI: 1,155
+  requests               869 (  0.4%) - CI: 0, Non-CI: 869
+  Nexus                  132 (  0.1%) - CI: 0, Non-CI: 132
 
 UV SUBCOMMANDS:
-  sync                     19,532
-  pip install              12,399
-  run                       3,174
-  tool install              2,504
-  (none)                    1,437
-  uvx                         379
-  add                         183
-  lock                        143
+  sync                     20,710
+  pip install              11,752
+  run                       3,446
+  tool install              2,565
+  (none)                    1,749
+  uvx                         380
+  add                         181
+  lock                        160
   pip compile                  45
   tool run                     16
   tool upgrade                  4
@@ -75,19 +75,19 @@ UV SUBCOMMANDS:
   export                        1
 
 PYTHON VERSIONS:
-  3.12          103,244 ( 48.9%)
-  3.11           50,620 ( 24.0%)
-  3.14           15,041 (  7.1%)
-  3.10           14,665 (  7.0%)
-  3.13            7,150 (  3.4%)
-  3.9             2,360 (  1.1%)
+  3.12          109,578 ( 48.9%)
+  3.11           55,294 ( 24.7%)
+  3.14           14,872 (  6.6%)
+  3.10           14,327 (  6.4%)
+  3.13            6,623 (  3.0%)
+  3.9             2,291 (  1.0%)
   3.7                65 (  0.0%)
-  3.8                62 (  0.0%)
-  2.7                51 (  0.0%)
+  3.8                60 (  0.0%)
+  2.7                50 (  0.0%)
   3.15                2 (  0.0%)
 
 VERIFICATION:
-  Total from installers: 210,993
-  Total downloads:       210,993
+  Total from installers: 224,300
+  Total downloads:       224,300
   Coverage:              100.00%
   ✓ 100% coverage achieved
