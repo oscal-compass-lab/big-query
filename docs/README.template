@@ -20,11 +20,11 @@ This repository contains automated BigQuery analytics and reports for PyPI packa
 <!-- METRICS_TABLE_START -->
 | Metric | 30 Days | 90 Days |
 |--------|---------|---------|
-| **Total Downloads** | PLACEHOLDER | PLACEHOLDER |
-| **Countries Reached** | PLACEHOLDER | PLACEHOLDER |
-| **CI/CD Installs** | PLACEHOLDER | PLACEHOLDER |
-| **UV Adoption** | PLACEHOLDER | PLACEHOLDER |
-| **Confirmed MCP Usage** | PLACEHOLDER | PLACEHOLDER |
+| **Total Downloads** | DOWNLOADS_30 | DOWNLOADS_90 |
+| **Countries Reached** | COUNTRIES_30 | COUNTRIES_90 |
+| **CI/CD Installs** | CI_30 | CI_90 |
+| **UV Adoption** | UV_30 | UV_90 |
+| **MCP Usage** | MCP_30 | MCP_90 |
 <!-- METRICS_TABLE_END -->
 
 ---
@@ -239,7 +239,7 @@ PLACEHOLDER uvx downloads over 90 days
 
 **30-Day Analysis:**
 <!-- MCP_FINDINGS_30_START -->
-1. **Confirmed MCP Usage:** PLACEHOLDER downloads using `uvx` subcommand
+1. **MCP Usage:** PLACEHOLDER downloads using `uvx` subcommand
 2. **UV Adoption:** PLACEHOLDER% of downloads
 3. **Interactive Usage:** PLACEHOLDER% of UV downloads are non-CI
 
@@ -251,7 +251,7 @@ MCP usage is detectable but small. The broader story is UV's growth as a modern 
 
 **90-Day Analysis:**
 <!-- MCP_FINDINGS_90_START -->
-1. **Confirmed MCP Usage:** PLACEHOLDER downloads using `uvx` subcommand
+1. **MCP Usage:** PLACEHOLDER downloads using `uvx` subcommand
 2. **UV Adoption:** PLACEHOLDER% of downloads
 3. **Interactive Usage:** PLACEHOLDER% of UV downloads are non-CI
 

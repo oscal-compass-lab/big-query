@@ -1468,20 +1468,18 @@ def update_readme(package: str, data_date: str, output_dir: Path):
         mcp_30 = metrics_30.get('mcp_count', '-') if metrics_30 else '-'
         mcp_90 = metrics_90.get('mcp_count', '-') if metrics_90 else '-'
         
-        # Replace metrics table between markers
-        metrics_table = f'''| Metric | 30 Days | 90 Days |
-|--------|---------|---------|
-| **Total Downloads** | {downloads_30} | {downloads_90} |
-| **Countries Reached** | {countries_30} | {countries_90} |
-| **CI/CD Installs** | {ci_30} | {ci_90} |
-| **UV Adoption** | {uv_30} | {uv_90} |
-| **Confirmed MCP Usage** | {mcp_30} | {mcp_90} |'''
-        
-        updated_content = re.sub(
-            r'<!-- METRICS_TABLE_START -->.*?<!-- METRICS_TABLE_END -->',
-            f'<!-- METRICS_TABLE_START -->\n{metrics_table}\n<!-- METRICS_TABLE_END -->',
-            updated_content,
-            flags=re.DOTALL
+        # Replace per-cell placeholders in the metrics table (structure lives in the template)
+        updated_content = (updated_content
+            .replace('DOWNLOADS_30', downloads_30)
+            .replace('DOWNLOADS_90', downloads_90)
+            .replace('COUNTRIES_30', countries_30)
+            .replace('COUNTRIES_90', countries_90)
+            .replace('CI_30', ci_30)
+            .replace('CI_90', ci_90)
+            .replace('UV_30', uv_30)
+            .replace('UV_90', uv_90)
+            .replace('MCP_30', mcp_30)
+            .replace('MCP_90', mcp_90)
         )
         
         # Generate geographic insights from actual country data
