@@ -2,9 +2,9 @@ name: Update PyPI Analytics
 
 on:
   schedule:
-    # Runs weekly on Mondays at 8:00 AM UTC (4:00 AM ET)
+    # Runs weekly on Sundays at 8:00 AM UTC (4:00 AM ET)
     # Note: GitHub may delay scheduled runs by up to 1 hour
-    - cron: '0 8 * * 1'
+    - cron: '0 8 * * 0'
   workflow_dispatch:
     inputs:
       package:
