@@ -60,17 +60,136 @@ This repository contains automated BigQuery analytics and reports for PyPI packa
 <td width="50%" valign="top">
 
 **Countries:**
-<!-- 46_START -->
-PLACEHOLDER_COUNTRIES_TABLE
-<!-- 46_END -->
+<!-- COUNTRIES_30_START -->
+| Country | Downloads | % |
+|---------|-----------|---|
+| <img src="https://flagcdn.com/16x12/us.png" alt="US" width="16" height="12"> United States | 85,469 | 93.5% |
+| <img src="https://flagcdn.com/16x12/sg.png" alt="SG" width="16" height="12"> Singapore | 2,112 | 2.3% |
+| <img src="https://flagcdn.com/16x12/se.png" alt="SE" width="16" height="12"> Sweden | 623 | 0.7% |
+| <img src="https://flagcdn.com/16x12/cn.png" alt="CN" width="16" height="12"> China | 473 | 0.5% |
+| <img src="https://flagcdn.com/16x12/de.png" alt="DE" width="16" height="12"> Germany | 423 | 0.5% |
+| <img src="https://flagcdn.com/16x12/gb.png" alt="GB" width="16" height="12"> United Kingdom | 373 | 0.4% |
+| <img src="https://flagcdn.com/16x12/ae.png" alt="AE" width="16" height="12"> United Arab Emirates | 291 | 0.3% |
+| <img src="https://flagcdn.com/16x12/ru.png" alt="RU" width="16" height="12"> Russian Federation | 272 | 0.3% |
+| <img src="https://flagcdn.com/16x12/in.png" alt="IN" width="16" height="12"> India | 262 | 0.3% |
+| <img src="https://flagcdn.com/16x12/fr.png" alt="FR" width="16" height="12"> France | 253 | 0.3% |
+| <img src="https://flagcdn.com/16x12/jp.png" alt="JP" width="16" height="12"> Japan | 166 | 0.2% |
+| <img src="https://flagcdn.com/16x12/es.png" alt="ES" width="16" height="12"> Spain | 109 | 0.1% |
+| <img src="https://flagcdn.com/16x12/au.png" alt="AU" width="16" height="12"> Australia | 90 | 0.1% |
+| <img src="https://flagcdn.com/16x12/ca.png" alt="CA" width="16" height="12"> Canada | 87 | 0.1% |
+| <img src="https://flagcdn.com/16x12/il.png" alt="IL" width="16" height="12"> Israel | 62 | 0.1% |
+| <img src="https://flagcdn.com/16x12/cz.png" alt="CZ" width="16" height="12"> Czechia | 41 | 0.0% |
+| <img src="https://flagcdn.com/16x12/nl.png" alt="NL" width="16" height="12"> Netherlands | 36 | 0.0% |
+| <img src="https://flagcdn.com/16x12/pl.png" alt="PL" width="16" height="12"> Poland | 32 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ie.png" alt="IE" width="16" height="12"> Ireland | 30 | 0.0% |
+| <img src="https://flagcdn.com/16x12/kr.png" alt="KR" width="16" height="12"> Korea, Republic of | 24 | 0.0% |
+| <img src="https://flagcdn.com/16x12/pt.png" alt="PT" width="16" height="12"> Portugal | 22 | 0.0% |
+| <img src="https://flagcdn.com/16x12/sa.png" alt="SA" width="16" height="12"> Saudi Arabia | 20 | 0.0% |
+| <img src="https://flagcdn.com/16x12/hk.png" alt="HK" width="16" height="12"> Hong Kong | 19 | 0.0% |
+| <img src="https://flagcdn.com/16x12/tw.png" alt="TW" width="16" height="12"> Taiwan, Province of China | 12 | 0.0% |
+| <img src="https://flagcdn.com/16x12/gr.png" alt="GR" width="16" height="12"> Greece | 10 | 0.0% |
+| <img src="https://flagcdn.com/16x12/at.png" alt="AT" width="16" height="12"> Austria | 10 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ch.png" alt="CH" width="16" height="12"> Switzerland | 6 | 0.0% |
+| <img src="https://flagcdn.com/16x12/md.png" alt="MD" width="16" height="12"> Moldova, Republic of | 5 | 0.0% |
+| <img src="https://flagcdn.com/16x12/br.png" alt="BR" width="16" height="12"> Brazil | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/dk.png" alt="DK" width="16" height="12"> Denmark | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/it.png" alt="IT" width="16" height="12"> Italy | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/np.png" alt="NP" width="16" height="12"> Nepal | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ro.png" alt="RO" width="16" height="12"> Romania | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/dz.png" alt="DZ" width="16" height="12"> Algeria | 3 | 0.0% |
+| <img src="https://flagcdn.com/16x12/pk.png" alt="PK" width="16" height="12"> Pakistan | 3 | 0.0% |
+| <img src="https://flagcdn.com/16x12/co.png" alt="CO" width="16" height="12"> Colombia | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/af.png" alt="AF" width="16" height="12"> Afghanistan | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/cr.png" alt="CR" width="16" height="12"> Costa Rica | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/no.png" alt="NO" width="16" height="12"> Norway | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/my.png" alt="MY" width="16" height="12"> Malaysia | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ma.png" alt="MA" width="16" height="12"> Morocco | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/fi.png" alt="FI" width="16" height="12"> Finland | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/iq.png" alt="IQ" width="16" height="12"> Iraq | 1 | 0.0% |
+| <img src="https://flagcdn.com/16x12/py.png" alt="PY" width="16" height="12"> Paraguay | 1 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ua.png" alt="UA" width="16" height="12"> Ukraine | 1 | 0.0% |
+| <img src="https://flagcdn.com/16x12/za.png" alt="ZA" width="16" height="12"> South Africa | 1 | 0.0% |
+<!-- COUNTRIES_30_END -->
 
 </td>
 <td width="50%" valign="top">
 
 **Countries:**
-<!-- 71_START -->
-PLACEHOLDER_COUNTRIES_TABLE
-<!-- 71_END -->
+<!-- COUNTRIES_90_START -->
+| Country | Downloads | % |
+|---------|-----------|---|
+| <img src="https://flagcdn.com/16x12/us.png" alt="US" width="16" height="12"> United States | 230,760 | 91.7% |
+| <img src="https://flagcdn.com/16x12/sg.png" alt="SG" width="16" height="12"> Singapore | 7,348 | 2.9% |
+| <img src="https://flagcdn.com/16x12/ru.png" alt="RU" width="16" height="12"> Russian Federation | 1,998 | 0.8% |
+| <img src="https://flagcdn.com/16x12/cn.png" alt="CN" width="16" height="12"> China | 1,610 | 0.6% |
+| <img src="https://flagcdn.com/16x12/gb.png" alt="GB" width="16" height="12"> United Kingdom | 1,408 | 0.6% |
+| <img src="https://flagcdn.com/16x12/ae.png" alt="AE" width="16" height="12"> United Arab Emirates | 1,238 | 0.5% |
+| <img src="https://flagcdn.com/16x12/jp.png" alt="JP" width="16" height="12"> Japan | 955 | 0.4% |
+| <img src="https://flagcdn.com/16x12/de.png" alt="DE" width="16" height="12"> Germany | 947 | 0.4% |
+| <img src="https://flagcdn.com/16x12/se.png" alt="SE" width="16" height="12"> Sweden | 803 | 0.3% |
+| <img src="https://flagcdn.com/16x12/kr.png" alt="KR" width="16" height="12"> Korea, Republic of | 610 | 0.2% |
+| <img src="https://flagcdn.com/16x12/fr.png" alt="FR" width="16" height="12"> France | 604 | 0.2% |
+| <img src="https://flagcdn.com/16x12/es.png" alt="ES" width="16" height="12"> Spain | 504 | 0.2% |
+| <img src="https://flagcdn.com/16x12/in.png" alt="IN" width="16" height="12"> India | 454 | 0.2% |
+| <img src="https://flagcdn.com/16x12/ca.png" alt="CA" width="16" height="12"> Canada | 373 | 0.1% |
+| <img src="https://flagcdn.com/16x12/hk.png" alt="HK" width="16" height="12"> Hong Kong | 373 | 0.1% |
+| <img src="https://flagcdn.com/16x12/au.png" alt="AU" width="16" height="12"> Australia | 270 | 0.1% |
+| <img src="https://flagcdn.com/16x12/tw.png" alt="TW" width="16" height="12"> Taiwan, Province of China | 231 | 0.1% |
+| <img src="https://flagcdn.com/16x12/ie.png" alt="IE" width="16" height="12"> Ireland | 196 | 0.1% |
+| <img src="https://flagcdn.com/16x12/ch.png" alt="CH" width="16" height="12"> Switzerland | 170 | 0.1% |
+| <img src="https://flagcdn.com/16x12/nl.png" alt="NL" width="16" height="12"> Netherlands | 132 | 0.1% |
+| <img src="https://flagcdn.com/16x12/il.png" alt="IL" width="16" height="12"> Israel | 75 | 0.0% |
+| <img src="https://flagcdn.com/16x12/pt.png" alt="PT" width="16" height="12"> Portugal | 62 | 0.0% |
+| <img src="https://flagcdn.com/16x12/cz.png" alt="CZ" width="16" height="12"> Czechia | 51 | 0.0% |
+| <img src="https://flagcdn.com/16x12/at.png" alt="AT" width="16" height="12"> Austria | 45 | 0.0% |
+| <img src="https://flagcdn.com/16x12/fi.png" alt="FI" width="16" height="12"> Finland | 44 | 0.0% |
+| <img src="https://flagcdn.com/16x12/sa.png" alt="SA" width="16" height="12"> Saudi Arabia | 43 | 0.0% |
+| <img src="https://flagcdn.com/16x12/pl.png" alt="PL" width="16" height="12"> Poland | 34 | 0.0% |
+| <img src="https://flagcdn.com/16x12/it.png" alt="IT" width="16" height="12"> Italy | 29 | 0.0% |
+| <img src="https://flagcdn.com/16x12/no.png" alt="NO" width="16" height="12"> Norway | 25 | 0.0% |
+| <img src="https://flagcdn.com/16x12/dk.png" alt="DK" width="16" height="12"> Denmark | 23 | 0.0% |
+| <img src="https://flagcdn.com/16x12/pk.png" alt="PK" width="16" height="12"> Pakistan | 23 | 0.0% |
+| <img src="https://flagcdn.com/16x12/be.png" alt="BE" width="16" height="12"> Belgium | 16 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ee.png" alt="EE" width="16" height="12"> Estonia | 12 | 0.0% |
+| <img src="https://flagcdn.com/16x12/vn.png" alt="VN" width="16" height="12"> Viet Nam | 10 | 0.0% |
+| <img src="https://flagcdn.com/16x12/gr.png" alt="GR" width="16" height="12"> Greece | 10 | 0.0% |
+| <img src="https://flagcdn.com/16x12/qa.png" alt="QA" width="16" height="12"> Qatar | 9 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ro.png" alt="RO" width="16" height="12"> Romania | 8 | 0.0% |
+| <img src="https://flagcdn.com/16x12/cr.png" alt="CR" width="16" height="12"> Costa Rica | 8 | 0.0% |
+| <img src="https://flagcdn.com/16x12/br.png" alt="BR" width="16" height="12"> Brazil | 8 | 0.0% |
+| <img src="https://flagcdn.com/16x12/md.png" alt="MD" width="16" height="12"> Moldova, Republic of | 6 | 0.0% |
+| <img src="https://flagcdn.com/16x12/co.png" alt="CO" width="16" height="12"> Colombia | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/za.png" alt="ZA" width="16" height="12"> South Africa | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/bd.png" alt="BD" width="16" height="12"> Bangladesh | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/cl.png" alt="CL" width="16" height="12"> Chile | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/my.png" alt="MY" width="16" height="12"> Malaysia | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/nz.png" alt="NZ" width="16" height="12"> New Zealand | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/np.png" alt="NP" width="16" height="12"> Nepal | 4 | 0.0% |
+| <img src="https://flagcdn.com/16x12/pr.png" alt="PR" width="16" height="12"> Puerto Rico | 3 | 0.0% |
+| <img src="https://flagcdn.com/16x12/dz.png" alt="DZ" width="16" height="12"> Algeria | 3 | 0.0% |
+| <img src="https://flagcdn.com/16x12/py.png" alt="PY" width="16" height="12"> Paraguay | 3 | 0.0% |
+| <img src="https://flagcdn.com/16x12/af.png" alt="AF" width="16" height="12"> Afghanistan | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/rs.png" alt="RS" width="16" height="12"> Serbia | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/az.png" alt="AZ" width="16" height="12"> Azerbaijan | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/id.png" alt="ID" width="16" height="12"> Indonesia | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/bg.png" alt="BG" width="16" height="12"> Bulgaria | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/cy.png" alt="CY" width="16" height="12"> Cyprus | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/th.png" alt="TH" width="16" height="12"> Thailand | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/tn.png" alt="TN" width="16" height="12"> Tunisia | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/gh.png" alt="GH" width="16" height="12"> Ghana | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ma.png" alt="MA" width="16" height="12"> Morocco | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/lu.png" alt="LU" width="16" height="12"> Luxembourg | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ph.png" alt="PH" width="16" height="12"> Philippines | 2 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ad.png" alt="AD" width="16" height="12"> Andorra | 1 | 0.0% |
+| <img src="https://flagcdn.com/16x12/iq.png" alt="IQ" width="16" height="12"> Iraq | 1 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ge.png" alt="GE" width="16" height="12"> Georgia | 1 | 0.0% |
+| <img src="https://flagcdn.com/16x12/eg.png" alt="EG" width="16" height="12"> Egypt | 1 | 0.0% |
+| <img src="https://flagcdn.com/16x12/mx.png" alt="MX" width="16" height="12"> Mexico | 1 | 0.0% |
+| <img src="https://flagcdn.com/16x12/pe.png" alt="PE" width="16" height="12"> Peru | 1 | 0.0% |
+| <img src="https://flagcdn.com/16x12/lt.png" alt="LT" width="16" height="12"> Lithuania | 1 | 0.0% |
+| <img src="https://flagcdn.com/16x12/li.png" alt="LI" width="16" height="12"> Liechtenstein | 1 | 0.0% |
+| <img src="https://flagcdn.com/16x12/ua.png" alt="UA" width="16" height="12"> Ukraine | 1 | 0.0% |
+<!-- COUNTRIES_90_END -->
 
 </td>
 </tr>
@@ -187,9 +306,9 @@ UV: 18.6% of downloads (46,746)
 
 ![CI vs Non-CI 30d](reports/compliance-trestle_mcp_ci_30days.png)
 
-<!-- UV_NON_67.9%_START -->
-UV: PLACEHOLDER% non-CI (PLACEHOLDER downloads)
-<!-- UV_NON_67.9%_END -->
+<!-- UV_NON_CI_30_START -->
+UV: 36.0% non-CI (4,442 downloads)
+<!-- UV_NON_CI_30_END -->
 
 </td>
 <td width="50%">
@@ -198,9 +317,9 @@ UV: PLACEHOLDER% non-CI (PLACEHOLDER downloads)
 
 ![CI vs Non-CI 90d](reports/compliance-trestle_mcp_ci_90days.png)
 
-<!-- UV_NON_68.4%_START -->
-UV: PLACEHOLDER% non-CI (PLACEHOLDER downloads)
-<!-- UV_NON_68.4%_END -->
+<!-- UV_NON_CI_90_START -->
+UV: 39.6% non-CI (18,529 downloads)
+<!-- UV_NON_CI_90_END -->
 
 </td>
 </tr></table>

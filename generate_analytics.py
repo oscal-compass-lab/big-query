@@ -1468,18 +1468,20 @@ def update_readme(package: str, data_date: str, output_dir: Path):
         mcp_30 = metrics_30.get('mcp_count', '-') if metrics_30 else '-'
         mcp_90 = metrics_90.get('mcp_count', '-') if metrics_90 else '-'
         
-        # Replace per-cell placeholders in the metrics table (structure lives in the template)
+        # Replace per-cell placeholders in the metrics table (structure lives in the template).
+        # Placeholders use a _VAL suffix so they never collide with the section-marker comment
+        # names (e.g. COUNTRIES_30_START/END) that are processed later by re.sub.
         updated_content = (updated_content
-            .replace('DOWNLOADS_30', downloads_30)
-            .replace('DOWNLOADS_90', downloads_90)
-            .replace('COUNTRIES_30', countries_30)
-            .replace('COUNTRIES_90', countries_90)
-            .replace('CI_30', ci_30)
-            .replace('CI_90', ci_90)
-            .replace('UV_30', uv_30)
-            .replace('UV_90', uv_90)
-            .replace('MCP_30', mcp_30)
-            .replace('MCP_90', mcp_90)
+            .replace('DOWNLOADS_30_VAL', downloads_30)
+            .replace('DOWNLOADS_90_VAL', downloads_90)
+            .replace('COUNTRIES_30_VAL', countries_30)
+            .replace('COUNTRIES_90_VAL', countries_90)
+            .replace('CI_30_VAL', ci_30)
+            .replace('CI_90_VAL', ci_90)
+            .replace('UV_30_VAL', uv_30)
+            .replace('UV_90_VAL', uv_90)
+            .replace('MCP_30_VAL', mcp_30)
+            .replace('MCP_90_VAL', mcp_90)
         )
         
         # Generate geographic insights from actual country data

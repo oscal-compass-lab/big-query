@@ -20,11 +20,11 @@ This repository contains automated BigQuery analytics and reports for PyPI packa
 <!-- METRICS_TABLE_START -->
 | Metric | 30 Days | 90 Days |
 |--------|---------|---------|
-| **Total Downloads** | DOWNLOADS_30 | DOWNLOADS_90 |
-| **Countries Reached** | COUNTRIES_30 | COUNTRIES_90 |
-| **CI/CD Installs** | CI_30 | CI_90 |
-| **UV Adoption** | UV_30 | UV_90 |
-| **MCP Usage** | MCP_30 | MCP_90 |
+| **Total Downloads** | DOWNLOADS_30_VAL | DOWNLOADS_90_VAL |
+| **Countries Reached** | COUNTRIES_30_VAL | COUNTRIES_90_VAL |
+| **CI/CD Installs** | CI_30_VAL | CI_90_VAL |
+| **UV Adoption** | UV_30_VAL | UV_90_VAL |
+| **MCP Usage** | MCP_30_VAL | MCP_90_VAL |
 <!-- METRICS_TABLE_END -->
 
 ---
