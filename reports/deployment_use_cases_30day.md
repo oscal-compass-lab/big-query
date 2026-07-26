@@ -34,15 +34,14 @@ Categories are inferred from OS, distribution, and CI/CD indicators:
 
 ## Current Distribution
 
-- **CI Compliance (Other CI)**: 110,787 downloads (76.6%)
-- **Other**: 29,958 downloads (20.7%)
-- **Gov/DoD Compliance (RHEL)**: 3,181 downloads (2.2%)
-- **Development (macOS)**: 358 downloads (0.2%)
-- **SDK Usage (Windows)**: 202 downloads (0.1%)
-- **C2P Pipeline (Alpine+CI)**: 148 downloads (0.1%)
-- **AWS Automation (Amazon+CI)**: 4 downloads (0.0%)
+- **CI Compliance (Other CI)**: 143,572 downloads (77.3%)
+- **Other**: 38,502 downloads (20.7%)
+- **Gov/DoD Compliance (RHEL)**: 2,967 downloads (1.6%)
+- **Development (macOS)**: 411 downloads (0.2%)
+- **SDK Usage (Windows)**: 190 downloads (0.1%)
+- **C2P Pipeline (Alpine+CI)**: 90 downloads (0.0%)
 
-**Total**: 144,638 downloads
+**Total**: 185,732 downloads
 
 ## Interpretation
 
