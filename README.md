@@ -18,8 +18,8 @@ This repository contains automated BigQuery analytics and reports for PyPI packa
 
 ## 🔑 Key Metrics Summary
 <!-- METRICS_TABLE_START -->
-| Metric | 30 Days | 90 Days |
-|--------|---------|---------|
+| Metric | Last 30 Days (Actual) | Last 90 Days (Actual) |
+|--------|----------------------|----------------------|
 | **Total Downloads** | 191,600 | 372,695 |
 | **Countries Reached** | 48 | 75 |
 | **CI/CD Installs** | 76.9% | 72.3% |
