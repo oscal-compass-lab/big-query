@@ -265,11 +265,27 @@ def generate_top_countries_tables(df: pd.DataFrame, package: str, days: int, out
         # Use flagcdn.com for high-quality SVG flags (16px height for inline display)
         return f'<img src="https://flagcdn.com/16x12/{code_lower}.png" alt="{code}" width="16" height="12">'
     
+    # Shorter display names for verbose UN formal names
+    _COUNTRY_NAME_OVERRIDES = {
+        'Taiwan, Province of China': 'Taiwan',
+        'Iran, Islamic Republic of': 'Iran',
+        'Korea, Republic of': 'South Korea',
+        'Russian Federation': 'Russia',
+        'Viet Nam': 'Vietnam',
+        'Moldova, Republic of': 'Moldova',
+        'Bolivia, Plurinational State of': 'Bolivia',
+        'Venezuela, Bolivarian Republic of': 'Venezuela',
+        'Syrian Arab Republic': 'Syria',
+        'Lao People\'s Democratic Republic': 'Laos',
+        'Tanzania, United Republic of': 'Tanzania',
+    }
+
     def get_country_name(code: str) -> str:
         """Get full country name from ISO code using pycountry library."""
         try:
             country = pycountry.countries.get(alpha_2=code.upper())
-            return country.name if country else code
+            name = country.name if country else code
+            return _COUNTRY_NAME_OVERRIDES.get(name, name)
         except (AttributeError, LookupError):
             return code  # Fallback to code if lookup fails
     
