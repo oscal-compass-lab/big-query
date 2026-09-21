@@ -55,7 +55,7 @@ After August 25: The "other" file count dropped to exactly 0%, shrinking the pac
 
 ## 🌍 Geographic Distribution
 
-<table>
+<table style="font-size:90%">
 <tr>
 <td width="50%" align="center">
 
