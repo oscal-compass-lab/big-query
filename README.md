@@ -27,6 +27,30 @@ This repository contains automated BigQuery analytics and reports for PyPI packa
 | **MCP Usage** | 63 | 469 |
 <!-- METRICS_TABLE_END -->
 
+-----
+
+## ⚠️ Important download tracking history change
+
+An architectural shift implemented on <i><b>August 24, 2026</b></i> represents one of the most significant corrections to PyPI’s download tracking history.
+Prior to this update, PyPI's logging infrastructure tracked downloads by matching a broad storage prefix (/packages/<xx>/<yy>/...). This meant any request for any file associated with a package release was logged as a full package download.
+The [official PyPI Blog post](https://blog.pypi.org/posts/2026-08-31-download-counts/) details exactly what was bloating those numbers, how severe the drop was, and how it impacts historical data:
+
+<b>What Was Artificially Inflating the Data?</b>
+
+The primary culprit was the adoption of PEP 658 metadata sidecars. Modern Python package installers (like pip or uv) often fetch just the lightweight .metadata file of a wheel to resolve dependencies before deciding whether they actually need to download the massive wheel itself.
+PyPI discovered that these metadata requests accounted for roughly 40% of all logged traffic. Other non-distribution files that were being erroneously counted included:
+
+.asc files: Legacy GPG signatures (deprecated for new uploads in 2023 but still served).
+Legacy formats: Leftover .egg, .exe, .msi, and .rpm files from older packaging eras.
+
+<b>The Scale of the "Downward Shift"</b>
+
+The impact of filtering out these files was immediate and permanent. Across all of PyPI, daily baseline downloads historically fluctuated between 4.5 billion on weekends to over 7 billion midweek. After the August 24 patch, that entire curve stepped down sharply because only files ending in .whl, .tar.gz, or .zip are now recorded.
+For a real-world example, PyPI administrators tracked urllib3 traffic during the transition week:
+
+Before August 24: urllib3 averaged ~74 million logged "downloads" a day, but 39% of those were actually metadata or accessory files, not the actual package.
+After August 25: The "other" file count dropped to exactly 0%, shrinking the package's daily download metric overnight to reflect only real distribution file downloads.
+
 ---
 
 ## 🌍 Geographic Distribution
