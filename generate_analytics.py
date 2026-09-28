@@ -1714,15 +1714,12 @@ MCP usage is detectable but small. The broader story is UV's growth as a modern 
             )
     
     if updated_content != content:
-        # Step 3: Write updated content to README.wip
+        # Step 3: Write to README.wip, rename to README.md (overwrites old README.md), README.wip is gone
         readme_wip_path.write_text(updated_content)
-        print(f"✓ Updated README.wip with data date, metrics, top countries, UV stats, and MCP findings")
-        
-        # Step 4: Leave README.wip in place for atomic swap by workflow
-        print(f"✓ README.wip updated and ready for atomic swap\n")
+        readme_wip_path.replace(readme_path)
+        print(f"✓ README.md updated with data date, metrics, top countries, UV stats, and MCP findings\n")
     else:
-        print("⚠ Could not update README.wip\n")
-        # Clean up README.wip on failure
+        print("⚠ Could not update README.md\n")
         if readme_wip_path.exists():
             readme_wip_path.unlink()
 
