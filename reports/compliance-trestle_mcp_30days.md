@@ -2,15 +2,15 @@
 
 ## Summary
 
-- **Total Downloads:** 68,196
-- **UV Downloads:** 38,450 (56.4%)
-- **uvx Downloads (MCP Pattern):** 67 (0.10%)
-- **UV Non-CI:** 18,029 (46.9% of UV)
+- **Total Downloads:** 73,715
+- **UV Downloads:** 41,949 (56.9%)
+- **uvx Downloads (MCP Pattern):** 60 (0.08%)
+- **UV Non-CI:** 19,134 (45.6% of UV)
 
 ## Key Findings
 
-1. **Confirmed MCP Usage:** 67 downloads using `uvx` subcommand
-2. **UV Adoption:** 56.4% market share
-3. **Interactive Usage:** 46.9% of UV downloads are non-CI
+1. **Confirmed MCP Usage:** 60 downloads using `uvx` subcommand
+2. **UV Adoption:** 56.9% market share
+3. **Interactive Usage:** 45.6% of UV downloads are non-CI
 
 MCP usage is detectable but small. The broader story is UV's growth as a modern Python installer.
