@@ -34,14 +34,14 @@ Categories are inferred from OS, distribution, and CI/CD indicators:
 
 ## Current Distribution
 
-- **CI Compliance (Other CI)**: 188,502 downloads (63.7%)
-- **Other**: 99,014 downloads (33.5%)
-- **Gov/DoD Compliance (RHEL)**: 5,436 downloads (1.8%)
-- **C2P Pipeline (Alpine+CI)**: 1,990 downloads (0.7%)
-- **Development (macOS)**: 728 downloads (0.2%)
-- **SDK Usage (Windows)**: 308 downloads (0.1%)
+- **CI Compliance (Other CI)**: 157,799 downloads (61.0%)
+- **Other**: 92,268 downloads (35.7%)
+- **Gov/DoD Compliance (RHEL)**: 5,328 downloads (2.1%)
+- **C2P Pipeline (Alpine+CI)**: 2,136 downloads (0.8%)
+- **Development (macOS)**: 665 downloads (0.3%)
+- **SDK Usage (Windows)**: 282 downloads (0.1%)
 
-**Total**: 295,978 downloads
+**Total**: 258,478 downloads
 
 ## Interpretation
 
